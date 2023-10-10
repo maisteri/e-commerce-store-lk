@@ -6,7 +6,7 @@
 
 const { User } = require('../models')
 const bcrypt = require('bcrypt')
-const { SECRET } = require('../util/config')
+const { SECRET } = require('../utils/config')
 const jwt = require('jsonwebtoken')
 
 const router = require('express').Router()

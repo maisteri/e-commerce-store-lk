@@ -1,6 +1,24 @@
 const jwt = require('jsonwebtoken')
-const { SECRET } = require('../util/config')
+const { SECRET } = require('./config')
 const { User } = require('../models')
+
+const errorHandler = (error, request, response, next) => {
+  if (error.name === 'CastError') {
+    return response.status(400).send(error)
+  }
+
+  if (error.name === 'SequelizeValidationError') {
+    return response
+      .status(400)
+      .send({ error: error.errors.map((e) => e.message) })
+  }
+
+  if (error.name === 'SequelizeDatabaseError') {
+    return response.status(400).send({ error: error.message })
+  }
+
+  next(error)
+}
 
 const userExtractor = (req, res, next) => {
   const token = req.token
@@ -29,4 +47,4 @@ const adminExtractor = async (req, res, next) => {
   next()
 }
 
-module.exports = { userExtractor, tokenExtractor, adminExtractor }
+module.exports = { userExtractor, tokenExtractor, adminExtractor, errorHandler }

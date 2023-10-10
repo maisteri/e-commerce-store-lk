@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const { User } = require('../models')
-const { adminExtractor, userExtractor } = require('../util/middleware')
+const { adminExtractor, userExtractor } = require('../utils/middleware')
 
 router.get('/', userExtractor, adminExtractor, async (req, res) => {
   const users = await User.findAll()
@@ -15,6 +15,14 @@ router.get('/', userExtractor, adminExtractor, async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+  if (
+    !('username' in req.body) ||
+    !('password' in req.body) ||
+    !('name' in req.body)
+  ) {
+    return res.status(400).json({ error: 'Mandatory parameters missing.' })
+  }
+
   const { username, name, password } = req.body
 
   const usernameAlreadyInUse = await User.findOne({ where: { username } })
@@ -30,6 +38,8 @@ router.post('/', async (req, res) => {
     name,
     passwordHash,
   }
+
+  console.log(passwordHash)
 
   const savedUser = await User.create(user)
 

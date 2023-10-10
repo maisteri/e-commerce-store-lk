@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { adminExtractor, userExtractor } = require('../util/middleware')
+const { adminExtractor, userExtractor } = require('../utils/middleware')
 const { Product } = require('../models')
 
 router.get('/', async (req, res) => {
