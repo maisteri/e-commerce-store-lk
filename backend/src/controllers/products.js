@@ -18,7 +18,7 @@ router.post('/', userExtractor, adminExtractor, async (req, res) => {
   res.status(201).json(newProduct)
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', userExtractor, adminExtractor, async (req, res) => {
   const productId = req.params.id
   const changes = req.body
   const product = await Product.findByPk(productId)
@@ -29,7 +29,7 @@ router.put('/:id', async (req, res) => {
   res.status(200).json(newProduct)
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', userExtractor, adminExtractor, async (req, res) => {
   const productId = req.params.id
   const product = await Product.findByPk(productId)
   if (!product) {

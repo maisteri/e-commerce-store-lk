@@ -7,6 +7,10 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).send(error)
   }
 
+  if (error.name === 'JsonWebTokenError') {
+    return response.status(400).send(error)
+  }
+
   if (error.name === 'SequelizeValidationError') {
     return response
       .status(400)
@@ -22,8 +26,11 @@ const errorHandler = (error, request, response, next) => {
 
 const userExtractor = (req, res, next) => {
   const token = req.token
+  if (!token) {
+    return res.status(401).json({ error: 'token missing or invalid' })
+  }
   const decodedToken = jwt.verify(token, SECRET)
-  if (!token || !decodedToken.id) {
+  if (!decodedToken.id) {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
   req.user = decodedToken.id
@@ -41,7 +48,7 @@ const tokenExtractor = (req, res, next) => {
 const adminExtractor = async (req, res, next) => {
   const user = await User.findByPk(req.user)
   if (!user.admin) {
-    res.status(403).json({ error: 'Resource restricted to admin users' })
+    return res.status(403).json({ error: 'Resource restricted to admin users' })
   }
   req.admin = true
   next()
