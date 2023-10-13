@@ -1,5 +1,6 @@
 const supertest = require('supertest')
 const helper = require('./test_helper')
+const { sequelize } = require('../utils/db')
 const app = require('../app')
 const api = supertest(app)
 const { Product, User } = require('../models')
@@ -8,15 +9,18 @@ const { expect, test } = require('@jest/globals')
 let adminToken = ''
 let userToken = ''
 
-beforeEach(async () => {
-  await Product.destroy({ where: {} })
+beforeAll(async () => {
   await User.destroy({ where: {} })
-  await Product.bulkCreate(helper.testProducts)
   const tokens = (await User.bulkCreate(helper.productAddUsers)).map(
     helper.calcToken
   )
   adminToken = tokens[0]
   userToken = tokens[1]
+})
+
+beforeEach(async () => {
+  await Product.destroy({ where: {} })
+  await Product.bulkCreate(helper.testProducts)
 })
 
 describe('products can be fetched', () => {
@@ -160,4 +164,6 @@ describe('admin user can change product details', () => {
   })
 })
 
-afterAll(async () => {})
+afterAll(async () => {
+  await sequelize.close()
+})

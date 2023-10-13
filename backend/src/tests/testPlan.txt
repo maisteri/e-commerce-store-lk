@@ -1,0 +1,45 @@
+/v1/api/users/
+
+a new user can register
+
+	users POST: user registration returns 201 and user details as json. Returned user details are correct and they include an id.                                                             
+	missing mandatory parameters in user registration return error code 400: bad request                                                                                                       
+	error code 400 is returned if username is not unique and error message is correct                                                                                                           
+	error code 400 is returned if username is not email format and error message is correct
+
+
+/v1/api/login/
+
+user login
+
+	registered user can login                                                                                                                                                                  
+	loginfails with non-existing username                                                                                                                                                
+	login fails with wrong password
+
+
+/v1/api/products/
+
+products can be fetched
+
+ 	a correct product list is returned
+                                                                                                                                                        
+admin user can add new products
+
+	a new product can be added by admin user                                                                                                                                                
+	a list of new product can be added by admin user                                                                                                                                          
+	a normal user cant add new products                                                                                                                                                         
+	a non registered user cant add new products
+                                                                                                                                            
+admin user can delete a product     
+
+	product delete succeeds with 204 if id is valid                                                                                                                                       
+	normal user cant delete a product                                                                                                                                                    
+	product delete fails with 404 if id is invalid
+
+admin user can change products details
+
+	detail change succeeds with 200 when changes and id are valid
+	detail change fail with 400 when data is not valid
+	detail change fails with 404 if id not valid
+	normal user making changes returns 403
+	
