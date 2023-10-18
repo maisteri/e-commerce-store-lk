@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { SECRET } = require('./config')
-const { User } = require('../models')
+const { User, ShoppingCart } = require('../models')
 
 const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
@@ -37,6 +37,19 @@ const userExtractor = (req, res, next) => {
   next()
 }
 
+const isCartCreator = async (req, res, next) => {
+  const sessionId = req.session.id
+  const shoppingCartId = req.params.id
+  const cart = await ShoppingCart.findByPk(shoppingCartId)
+  if (!cart) {
+    return res.status(400).json({ error: 'No such cart' })
+  }
+  if (cart.sessionId !== sessionId) {
+    return res.status(400).json({ error: 'Wrong session' })
+  }
+  next()
+}
+
 const tokenExtractor = (req, res, next) => {
   const authHeader = req.get('authorization')
   if (authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
@@ -54,4 +67,10 @@ const adminExtractor = async (req, res, next) => {
   next()
 }
 
-module.exports = { userExtractor, tokenExtractor, adminExtractor, errorHandler }
+module.exports = {
+  isCartCreator,
+  userExtractor,
+  tokenExtractor,
+  adminExtractor,
+  errorHandler,
+}

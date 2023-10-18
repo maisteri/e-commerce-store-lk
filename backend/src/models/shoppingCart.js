@@ -14,6 +14,10 @@ ShoppingCart.init(
       allowNull: false,
       type: DataTypes.BOOLEAN,
     },
+    sessionId: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,
