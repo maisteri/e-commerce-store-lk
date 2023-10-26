@@ -2,6 +2,7 @@ import CategoriesTabs from './components/CategoriesTabs'
 import PrimaryAppBar from './components/PrimaryAppbar'
 import { Grid, CssBaseline } from '@mui/material'
 import ProductCard from './components/ProductCard'
+import ShoppingCart, { ShoppingCartItem } from './components/ShoppingCart'
 
 const categories = ['all', 'mouse', 'cat', 'sportswear', 'drinks', 'mushrooms']
 
@@ -15,6 +16,14 @@ const product = {
   numberOfRatings: 100,
 }
 
+const mockData: ShoppingCartItem[] = [
+  { id: 1, title: 'Item 1', price: 10.99, quantity: 2 },
+  { id: 2, title: 'Item 2', price: 5.99, quantity: 1 },
+  { id: 3, title: 'Item 3', price: 8.99, quantity: 3 },
+  { id: 4, title: 'Item 4', price: 15.99, quantity: 1 },
+  { id: 5, title: 'Item 5', price: 12.99, quantity: 4 },
+]
+
 function App() {
   return (
     <>
@@ -27,6 +36,7 @@ function App() {
           <CategoriesTabs categories={categories} />
         </Grid>
         <ProductCard {...product} />
+        <ShoppingCart items={mockData} />
       </Grid>
     </>
   )
