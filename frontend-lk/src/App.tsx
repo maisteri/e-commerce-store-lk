@@ -1,8 +1,9 @@
 import CategoriesTabs from './components/CategoriesTabs'
 import PrimaryAppBar from './components/PrimaryAppbar'
-import { Grid, CssBaseline } from '@mui/material'
+import { Grid, CssBaseline, Button } from '@mui/material'
 import ProductCard from './components/ProductCard'
 import ShoppingCart, { ShoppingCartItem } from './components/ShoppingCart'
+import BasicDrawer from './components/BasicDrawer'
 
 const categories = ['all', 'mouse', 'cat', 'sportswear', 'drinks', 'mushrooms']
 
@@ -33,11 +34,16 @@ function App() {
           <PrimaryAppBar />
         </Grid>
         <Grid item xs={12}>
-          <CategoriesTabs categories={categories} />
+          <CategoriesTabs
+            categories={categories}
+            orientation='horizontal'
+            centered
+          />
         </Grid>
         <ProductCard {...product} />
-        <ShoppingCart items={mockData} />
+        {/* <ShoppingCart items={mockData} /> */}
       </Grid>
+      <BasicDrawer />
     </>
   )
 }

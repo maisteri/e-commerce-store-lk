@@ -3,6 +3,8 @@ import { Box, Tabs, Tab } from '@mui/material'
 
 interface CategoriesTabsProps {
   categories: Array<string>
+  orientation: 'horizontal' | 'vertical'
+  centered: boolean
 }
 
 const CategoriesTabs = (props: CategoriesTabsProps) => {
@@ -15,7 +17,12 @@ const CategoriesTabs = (props: CategoriesTabsProps) => {
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <Tabs value={value} onChange={handleChange} centered>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        orientation={props.orientation}
+        centered={props.centered}
+      >
         {props.categories.map((category) => (
           <Tab label={category} key={category} />
         ))}
