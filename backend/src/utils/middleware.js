@@ -37,16 +37,17 @@ const userExtractor = (req, res, next) => {
   next()
 }
 
-const isCartCreator = async (req, res, next) => {
+const cartExtractor = async (req, res, next) => {
   const sessionId = req.session.id
-  const shoppingCartId = req.params.id
-  const cart = await ShoppingCart.findByPk(shoppingCartId)
+  console.log('WADAP!!!: SESSION ID: ', sessionId)
+  const cart = await ShoppingCart.findOne({
+    where: { sessionId },
+  })
+  console.log(JSON.stringify(cart))
   if (!cart) {
-    return res.status(400).json({ error: 'No such cart' })
+    return res.status(404).json({ error: 'No cart' })
   }
-  if (cart.sessionId !== sessionId) {
-    return res.status(400).json({ error: 'Wrong session' })
-  }
+  req.shoppingCartId = cart.id
   next()
 }
 
@@ -76,7 +77,7 @@ const corsDevRules = (req, res, next) => {
 }
 
 module.exports = {
-  isCartCreator,
+  cartExtractor,
   userExtractor,
   tokenExtractor,
   adminExtractor,

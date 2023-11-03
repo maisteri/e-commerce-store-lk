@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const { isCartCreator } = require('../utils/middleware')
+const { cartExtractor } = require('../utils/middleware')
 const { ShoppingCart, ShoppingCartItem, Product } = require('../models')
 
-router.get('/:id', isCartCreator, async (req, res) => {
-  const id = req.params.id
+router.get('/', cartExtractor, async (req, res) => {
+  const id = req.shoppingCartId
   const cart = await ShoppingCart.findOne({
     attributes: { exclude: ['shoppingCartId', 'sessionId', 'current'] },
     include: {
@@ -27,8 +27,8 @@ router.post('/', async (req, res) => {
 })
 
 // add items to existing shopping cart
-router.post('/:id', isCartCreator, async (req, res) => {
-  const shoppingCartId = req.params.id
+router.post('/:id', cartExtractor, async (req, res) => {
+  const shoppingCartId = req.shoppingCartId
   const productId = req.body.id
 
   if (!productId) {
@@ -63,8 +63,8 @@ router.post('/:id', isCartCreator, async (req, res) => {
 })
 
 // modify a single shopping cart item quantity
-router.put('/:id/:shoppingCartItemId', isCartCreator, async (req, res) => {
-  const shoppingCartItemId = req.params.shoppingCartItemId
+router.put('/:id', cartExtractor, async (req, res) => {
+  const shoppingCartItemId = req.params.id
   const item = await ShoppingCartItem.findByPk(shoppingCartItemId)
 
   if (!item) {
@@ -80,8 +80,8 @@ router.put('/:id/:shoppingCartItemId', isCartCreator, async (req, res) => {
   res.status(200).json(modifiedItem)
 })
 
-router.delete('/:id', isCartCreator, async (req, res) => {
-  const shoppingCartId = req.params.id
+router.delete('/', cartExtractor, async (req, res) => {
+  const shoppingCartId = req.shoppingCartId
   const cart = await ShoppingCart.findByPk(shoppingCartId)
   const cartItems = await ShoppingCartItem.findAll({
     where: {
