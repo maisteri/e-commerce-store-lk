@@ -45,7 +45,9 @@ const cartExtractor = async (req, res, next) => {
   })
   console.log(JSON.stringify(cart))
   if (!cart) {
-    return res.status(404).json({ error: 'No cart' })
+    const { id } = await ShoppingCart.create({ current: true, sessionId })
+    req.shoppingCartId = id
+    next()
   }
   req.shoppingCartId = cart.id
   next()

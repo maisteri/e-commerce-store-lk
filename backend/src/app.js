@@ -36,7 +36,7 @@ app.use(
     proxy: false, // if you do SSL outside of node.
     cookie: {
       httpOnly: true,
-      expires: new Date(Date.now() + 3600000), // Set the expire date to 1 hour from now
+      expires: new Date(Date.now() + 3600000000), // Set the expire date to 1000 hour from now
       // secure: true,
       // sameSite: 'none',
     },
