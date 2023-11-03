@@ -10,7 +10,11 @@ const loginRouter = require('./controllers/login')
 const usersRouter = require('./controllers/users')
 const productsRouter = require('./controllers/products')
 const cartRouter = require('./controllers/cart')
-const { tokenExtractor, errorHandler } = require('./utils/middleware')
+const {
+  tokenExtractor,
+  errorHandler,
+  corsDevRules,
+} = require('./utils/middleware')
 
 connectToDatabase()
   .then(() => {
@@ -30,11 +34,18 @@ app.use(
     store: sessionStore,
     resave: false, // we support the touch method so per the express-session docs this should be set to false
     proxy: false, // if you do SSL outside of node.
+    cookie: {
+      httpOnly: true,
+      expires: new Date(Date.now() + 3600000), // Set the expire date to 1 hour from now
+      // secure: true,
+      // sameSite: 'none',
+    },
   })
 )
 sessionStore.sync()
 
 app.use(cors())
+app.use(corsDevRules)
 app.use(express.json())
 app.use(tokenExtractor)
 

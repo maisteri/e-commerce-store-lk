@@ -22,8 +22,8 @@ router.get('/:id', isCartCreator, async (req, res) => {
 // create a new shopping cart
 router.post('/', async (req, res) => {
   const sessionId = req.session.id
-  const newCart = await ShoppingCart.create({ current: true, sessionId })
-  res.status(201).json({ shoppingCartId: newCart.id })
+  const { id } = await ShoppingCart.create({ current: true, sessionId })
+  res.status(201).json({ id })
 })
 
 // add items to existing shopping cart

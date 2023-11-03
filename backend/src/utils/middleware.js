@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { SECRET } = require('./config')
+const { SECRET, NODE_ENV } = require('./config')
 const { User, ShoppingCart } = require('../models')
 
 const errorHandler = (error, request, response, next) => {
@@ -67,10 +67,19 @@ const adminExtractor = async (req, res, next) => {
   next()
 }
 
+const corsDevRules = (req, res, next) => {
+  if (NODE_ENV === 'development') {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+  }
+  next()
+}
+
 module.exports = {
   isCartCreator,
   userExtractor,
   tokenExtractor,
   adminExtractor,
   errorHandler,
+  corsDevRules,
 }
