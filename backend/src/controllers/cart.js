@@ -2,21 +2,23 @@ const router = require('express').Router()
 const { cartExtractor } = require('../utils/middleware')
 const { ShoppingCart, ShoppingCartItem, Product } = require('../models')
 
+const productDetailsIncluded = {
+  model: Product,
+  attributes: ['title', 'price', 'imageUrl'],
+}
+
+const shoppingCartDetailsIncluded = {
+  attributes: { exclude: ['shoppingCartId'] },
+  model: ShoppingCartItem,
+  include: productDetailsIncluded,
+}
+
 router.get('/', cartExtractor, async (req, res) => {
   const id = req.shoppingCartId
-  const cart = await ShoppingCart.findOne({
-    attributes: { exclude: ['shoppingCartId', 'sessionId', 'current'] },
-    include: {
-      attributes: { exclude: ['shoppingCartId'] },
-      model: ShoppingCartItem,
-      include: {
-        model: Product,
-        attributes: ['title', 'price', 'imageUrl'],
-      },
-    },
-    where: { id },
+  const cart = await ShoppingCart.findByPk(id, {
+    include: shoppingCartDetailsIncluded,
   })
-  res.status(200).json(cart)
+  res.status(200).json(cart.shoppingCartItems)
 })
 
 // add items to shopping cart
@@ -35,30 +37,44 @@ router.post('/', cartExtractor, async (req, res) => {
   }
 
   const cart = await ShoppingCart.findByPk(shoppingCartId, {
-    include: {
-      model: ShoppingCartItem,
-    },
+    include: shoppingCartDetailsIncluded,
   })
 
-  const p = cart.shoppingCartItems.find((item) => item.productId === productId)
-  if (p) {
-    p.quantity = p.quantity + 1
-    const updatedProduct = await p.save()
+  // if item exists in shopping cart, add +1 to quantity of that item
+  const existingItem = cart.shoppingCartItems.find(
+    (item) => item.productId === productId
+  )
+  if (existingItem) {
+    existingItem.quantity = existingItem.quantity + 1
+    const updatedProduct = await existingItem.save()
     return res.status(200).json(updatedProduct)
   }
 
-  const item = await ShoppingCartItem.create({
+  const newItem = await ShoppingCartItem.create({
     quantity: 1,
     shoppingCartId,
     productId: product.id,
   })
-  res.status(201).json(item)
+
+  const newItemWithDetails = await ShoppingCartItem.findByPk(newItem.id, {
+    attributes: { exclude: ['shoppingCartId'] },
+    include: productDetailsIncluded,
+  })
+
+  console.log(JSON.stringify(newItemWithDetails, null, 2))
+
+  res.status(201).json(newItemWithDetails)
 })
 
 // modify a single shopping cart item quantity
+
+// TODO: if itemId in Shoppingcart...
 router.put('/:id', cartExtractor, async (req, res) => {
   const shoppingCartItemId = req.params.id
-  const item = await ShoppingCartItem.findByPk(shoppingCartItemId)
+  const item = await ShoppingCartItem.findByPk(shoppingCartItemId, {
+    attributes: { exclude: ['shoppingCartId'] },
+    include: productDetailsIncluded,
+  })
 
   if (!item) {
     return res.status(404).json({ error: 'No item with given id' })
@@ -81,7 +97,7 @@ router.delete('/', cartExtractor, async (req, res) => {
       shoppingCartId,
     },
   })
-  cart.destroy()
+  await cart.destroy()
   cartItems.forEach((item) => item.destroy())
   res.status(204).end()
 })

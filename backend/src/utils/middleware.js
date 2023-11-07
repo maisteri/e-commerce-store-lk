@@ -39,15 +39,14 @@ const userExtractor = (req, res, next) => {
 
 const cartExtractor = async (req, res, next) => {
   const sessionId = req.session.id
-  console.log('WADAP!!!: SESSION ID: ', sessionId)
   const cart = await ShoppingCart.findOne({
-    where: { sessionId },
+    where: { sessionId, current: true },
   })
   console.log(JSON.stringify(cart))
   if (!cart) {
     const { id } = await ShoppingCart.create({ current: true, sessionId })
     req.shoppingCartId = id
-    next()
+    return next()
   }
   req.shoppingCartId = cart.id
   next()
