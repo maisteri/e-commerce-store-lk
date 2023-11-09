@@ -4,7 +4,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
 interface ShoppingCartButtonProps {
   badgeContent: number
-  handleClick: () => void
 }
 
 const ShoppingCartButton = (props: ShoppingCartButtonProps) => {
@@ -13,7 +12,7 @@ const ShoppingCartButton = (props: ShoppingCartButtonProps) => {
       size='large'
       aria-label={`${props.badgeContent} items in shopping cart`}
       color='inherit'
-      onClick={props.handleClick}
+      onClick={() => console.log('shopping...')}
     >
       <Badge badgeContent={props.badgeContent} color='error'>
         <ShoppingCartIcon />

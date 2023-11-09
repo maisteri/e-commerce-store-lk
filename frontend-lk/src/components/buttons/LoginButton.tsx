@@ -1,7 +1,7 @@
 import { IconButton } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 
-const BasicLoginButton = () => {
+const LoginButton = () => {
   return (
     <IconButton
       size='large'
@@ -16,4 +16,4 @@ const BasicLoginButton = () => {
   )
 }
 
-export default BasicLoginButton
+export default LoginButton

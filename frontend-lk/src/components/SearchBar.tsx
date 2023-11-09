@@ -46,7 +46,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
-const BasicSearchBar = (): JSX.Element | null => {
+const SearchBar = (): JSX.Element | null => {
   const [filter, setFilter] = useState<string>('')
   console.log(filter)
   return (
@@ -67,4 +67,4 @@ const BasicSearchBar = (): JSX.Element | null => {
   )
 }
 
-export default BasicSearchBar
+export default SearchBar

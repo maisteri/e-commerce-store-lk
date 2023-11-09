@@ -9,17 +9,20 @@ import {
   Rating,
 } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import { useAppDispatch, useAppSelector } from '../hooks'
+import { Product } from '../types'
+import { addItemToCart } from '../reducers/shoppingCartReducer'
 
-interface ProductCardProps {
-  imageUrl: string
-  title: string
-  price: number
-  description: string
-  rating: number
-  numberOfRatings: number
-}
+const ProductCard = (props: Product) => {
+  const items = useAppSelector((state) => state.shoppingCart)
+  const dispatch = useAppDispatch()
 
-const ProductCard = (props: ProductCardProps) => {
+  const handleItemAddToCart = (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    dispatch(addItemToCart(props.id))
+    console.log(items)
+  }
+
   return (
     <Card sx={{ margin: 2 }} raised>
       <Grid container spacing={2}>
@@ -50,6 +53,7 @@ const ProductCard = (props: ProductCardProps) => {
           <CardActions>
             <Button
               variant='contained'
+              onClick={handleItemAddToCart}
               color='success'
               startIcon={<AddShoppingCartIcon fontSize='large' />}
             ></Button>
