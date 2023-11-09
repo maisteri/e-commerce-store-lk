@@ -10,11 +10,7 @@ const loginRouter = require('./controllers/login')
 const usersRouter = require('./controllers/users')
 const productsRouter = require('./controllers/products')
 const cartRouter = require('./controllers/cart')
-const {
-  tokenExtractor,
-  errorHandler,
-  corsDevRules,
-} = require('./utils/middleware')
+const { tokenExtractor, errorHandler } = require('./utils/middleware')
 
 connectToDatabase()
   .then(() => {
@@ -44,8 +40,13 @@ app.use(
 )
 sessionStore.sync()
 
-app.use(cors())
-app.use(corsDevRules)
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Replace with the origin you want to allow
+    credentials: true,
+  })
+)
+// app.use(corsDevRules)
 app.use(express.json())
 app.use(tokenExtractor)
 

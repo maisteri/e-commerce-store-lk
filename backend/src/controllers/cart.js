@@ -61,8 +61,6 @@ router.post('/', cartExtractor, async (req, res) => {
     include: productDetailsIncluded,
   })
 
-  console.log(JSON.stringify(newItemWithDetails, null, 2))
-
   res.status(201).json(newItemWithDetails)
 })
 
@@ -87,6 +85,23 @@ router.put('/:id', cartExtractor, async (req, res) => {
   item.quantity = req.body.quantity
   const modifiedItem = await item.save()
   res.status(200).json(modifiedItem)
+})
+
+router.delete('/:id', cartExtractor, async (req, res) => {
+  const shoppingCartItemId = req.params.id
+  const shoppingCartId = req.shoppingCartId
+  const itemToBeDeleted = await ShoppingCartItem.findByPk(shoppingCartItemId)
+
+  if (!itemToBeDeleted) {
+    return res.status(404).json({ error: 'No item with given id' })
+  }
+
+  if (shoppingCartId !== itemToBeDeleted.shoppingCartId) {
+    return res.status(403).json({ error: 'Operation forbidden' })
+  }
+
+  await itemToBeDeleted.destroy()
+  res.status(204).end()
 })
 
 router.delete('/', cartExtractor, async (req, res) => {
