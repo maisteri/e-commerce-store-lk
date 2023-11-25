@@ -22,7 +22,7 @@ const addItem = async (id: ProductId) => {
 }
 
 const modifyItemQuantity = async (id: ShoppingCartItemId, quantity: number) => {
-  const { data } = await axios.post<ShoppingCartItem>(
+  const { data } = await axios.put<ShoppingCartItem>(
     `${apiBaseUrl}/${resource}/${id}`,
     {
       quantity,

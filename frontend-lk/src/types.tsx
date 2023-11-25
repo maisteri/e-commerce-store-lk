@@ -21,3 +21,13 @@ export interface ShoppingCartItem {
   productId: ProductId
   product: Pick<Product, 'title' | 'price' | 'imageUrl'>
 }
+
+export interface Credentials {
+  username: string
+  password: string
+}
+
+export interface UserData {
+  token: string
+  name: string
+}

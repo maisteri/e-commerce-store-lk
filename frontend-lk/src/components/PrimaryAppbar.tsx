@@ -5,6 +5,8 @@ import BasicLoginButton from './buttons/LoginButton'
 import BasicLogo from './Logo'
 import ShoppingCartButton from './buttons/ShoppingCartButton'
 import MenuButton from './buttons/MenuButton'
+import { Link } from 'react-router-dom'
+import HelloUser from './HelloUser'
 
 export default function PrimaryAppBar() {
   return (
@@ -17,11 +19,16 @@ export default function PrimaryAppBar() {
             component='div'
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <BasicLogo path='/src/data/lk_logo.jpg' />
+            <Link to={'/'}>
+              <BasicLogo path='/src/data/lk_logo.jpg' />
+            </Link>
           </Typography>
           <BasicSearchBar />
-          <ShoppingCartButton badgeContent={3} />
+
+          <ShoppingCartButton />
+
           <BasicLoginButton />
+          <HelloUser />
         </Toolbar>
       </AppBar>
     </Box>

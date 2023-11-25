@@ -29,8 +29,8 @@ const ProductCard = (props: Product) => {
         <Grid item xs={2}>
           <CardMedia
             sx={{ padding: 2 }}
-            image='https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'
-            title='backpack1'
+            image={props.imageUrl}
+            title={props.title}
             component='img'
           />
         </Grid>

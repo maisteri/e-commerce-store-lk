@@ -57,7 +57,14 @@ export const modifyItemQuantity = (
   quantity: number
 ): AppThunk => {
   return async (dispatch, getState) => {
+    console.log('wadap:::', id, quantity)
     const { shoppingCart } = getState()
+
+    if (!quantity) {
+      await cartService.deleteItem(id)
+      return dispatch(remove(id))
+    }
+
     const modifiedItem = await cartService.modifyItemQuantity(id, quantity)
     const updatedShoppingCart = shoppingCart.map((item) =>
       item.id === id ? modifiedItem : item

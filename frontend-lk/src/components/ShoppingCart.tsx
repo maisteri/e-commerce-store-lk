@@ -14,17 +14,9 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import BasicButton from './buttons/BasicButton'
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale'
-
-export interface ShoppingCartItem {
-  title: string
-  quantity: number
-  price: number
-  id: number
-}
-
-export interface ShoppingCartProps {
-  items: ShoppingCartItem[]
-}
+import { useAppDispatch, useAppSelector } from '../hooks'
+import { ShoppingCartItem, ShoppingCartItemId } from '../types'
+import { deleteItem, modifyItemQuantity } from '../reducers/shoppingCartReducer'
 
 function ccyFormat(num: number) {
   return `${num.toFixed(2)}`
@@ -32,13 +24,27 @@ function ccyFormat(num: number) {
 
 function total(items: readonly ShoppingCartItem[]) {
   return items
-    .map(({ price, quantity }) => price * quantity)
+    .map((item) => item.product.price * item.quantity)
     .reduce((sum, i) => sum + i, 0)
 }
 
-const ShoppingCart = (props: ShoppingCartProps) => {
-  const items = props.items
+const ShoppingCart = () => {
+  const dispatch = useAppDispatch()
+  const items = useAppSelector((state) => state.shoppingCart)
   const invoiceTotal = total(items)
+
+  const handleModifyItem =
+    (id: ShoppingCartItemId, quantity: number) =>
+    (event: React.SyntheticEvent) => {
+      event.preventDefault
+      dispatch(modifyItemQuantity(id, quantity))
+    }
+
+  const handleRemoveItem =
+    (id: ShoppingCartItemId) => (event: React.SyntheticEvent) => {
+      event.preventDefault
+      dispatch(deleteItem(id))
+    }
 
   return (
     <TableContainer component={Paper}>
@@ -55,21 +61,35 @@ const ShoppingCart = (props: ShoppingCartProps) => {
         <TableBody>
           {items.map((item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.title}</TableCell>
-              <TableCell>
+              <TableCell>{item.product.title}</TableCell>
+              <TableCell sx={{ width: '150px' }}>
                 {' '}
-                <IconButton aria-label='add' size='medium'>
+                <IconButton
+                  aria-label='add'
+                  size='medium'
+                  onClick={handleModifyItem(item.id, item.quantity + 1)}
+                >
                   <AddIcon fontSize='inherit' />
                 </IconButton>{' '}
                 {item.quantity}{' '}
-                <IconButton aria-label='remove' size='medium'>
+                <IconButton
+                  aria-label='remove'
+                  size='medium'
+                  onClick={handleModifyItem(item.id, item.quantity - 1)}
+                >
                   <RemoveIcon fontSize='inherit' />
                 </IconButton>
               </TableCell>
-              <TableCell>{item.price}</TableCell>
-              <TableCell>{item.quantity * item.price}</TableCell>
+              <TableCell>{item.product.price}</TableCell>
               <TableCell>
-                <IconButton aria-label='delete' size='medium'>
+                {ccyFormat(item.quantity * item.product.price)}
+              </TableCell>
+              <TableCell>
+                <IconButton
+                  aria-label='delete'
+                  size='medium'
+                  onClick={handleRemoveItem(item.id)}
+                >
                   <DeleteIcon fontSize='inherit' />
                 </IconButton>
               </TableCell>
@@ -87,6 +107,7 @@ const ShoppingCart = (props: ShoppingCartProps) => {
                 color='success'
                 name='CHECKOUT'
                 starIcon={<PointOfSaleIcon />}
+                onClick={() => console.log('CHECKOUT!')}
               ></BasicButton>
             </TableCell>
           </TableRow>

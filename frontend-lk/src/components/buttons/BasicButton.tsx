@@ -11,6 +11,7 @@ interface BasicButtonProps {
     | 'warning'
   name: string
   starIcon: React.ReactNode
+  onClick: (event: React.SyntheticEvent) => void
 }
 
 const BasicButton = (props: BasicButtonProps) => {
@@ -30,6 +31,7 @@ const BasicButton = (props: BasicButtonProps) => {
       variant='contained'
       color={props.color}
       startIcon={props.starIcon}
+      onClick={props.onClick}
     >
       {props.name}
     </Button>

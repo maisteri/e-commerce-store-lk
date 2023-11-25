@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom'
 import CategoriesTabs from './components/CategoriesTabs'
 import PrimaryAppBar from './components/PrimaryAppbar'
 import { Grid, CssBaseline } from '@mui/material'
@@ -8,6 +9,9 @@ import ProductList from './components/ProductsList'
 import { useEffect } from 'react'
 import { useAppDispatch } from './hooks'
 import { initiateCart } from './reducers/shoppingCartReducer'
+import { initiateUser } from './reducers/userLoginReducer'
+import ShoppingCart from './components/ShoppingCart'
+import SignIn from './components/SignIn'
 
 const categories = ['all', 'mouse', 'cat', 'sportswear', 'drinks', 'mushrooms']
 
@@ -16,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initiateCart())
-    console.log('wadap')
+    dispatch(initiateUser())
   }, [dispatch])
 
   return (
@@ -35,11 +39,13 @@ const App = () => {
         </Grid>
         <Grid item xs={3}></Grid>
         <Grid item xs={6}>
-          <ProductList />
+          <Routes>
+            <Route path='/' element={<ProductList />} />
+            <Route path='/cart' element={<ShoppingCart />} />
+            <Route path='/signin' element={<SignIn />} />
+          </Routes>
         </Grid>
         <Grid item xs={3}></Grid>
-
-        {/* <ShoppingCart items={mockData} /> */}
       </Grid>
       <SideCategoriesTabsDrawer />
     </>

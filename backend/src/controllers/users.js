@@ -39,12 +39,9 @@ router.post('/', async (req, res) => {
     passwordHash,
   }
 
-  console.log(passwordHash)
-
   const savedUser = await User.create(user)
 
   const returnedUser = {
-    username: savedUser.username,
     name: savedUser.name,
     id: savedUser.id,
   }
