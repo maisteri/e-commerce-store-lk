@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import shoppingCartReducer from './reducers/shoppingCartReducer'
 import userLoginReducer from './reducers/userLoginReducer'
+import siteGeneralReducer from './reducers/siteGeneralReducer'
 
 export const store = configureStore({
   reducer: {
     shoppingCart: shoppingCartReducer,
     user: userLoginReducer,
+    general: siteGeneralReducer,
   },
 })
 

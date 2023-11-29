@@ -1,13 +1,14 @@
-import * as React from 'react'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
-import Button from '@mui/material/Button'
 import CategoriesTabs from './CategoriesTabs'
+import { useAppDispatch, useAppSelector } from '../hooks'
+import { setSideDrawerOpen } from '../reducers/siteGeneralReducer'
 
 const categories = ['all', 'mouse', 'cat', 'sportswear', 'drinks', 'mushrooms']
 
 const SideCategoriesTabsDrawer = () => {
-  const [open, setOpen] = React.useState(false)
+  const dispatch = useAppDispatch()
+  const open = useAppSelector((state) => state.general.sideDrawerOpen)
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -18,7 +19,7 @@ const SideCategoriesTabsDrawer = () => {
       ) {
         return
       }
-      setOpen(open)
+      dispatch(setSideDrawerOpen(open))
     }
 
   const list = () => (
@@ -37,7 +38,6 @@ const SideCategoriesTabsDrawer = () => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>left</Button>
       <Drawer anchor='left' open={open} onClose={toggleDrawer(false)}>
         {list()}
       </Drawer>
