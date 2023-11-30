@@ -1,9 +1,41 @@
 const router = require('express').Router()
 const { adminExtractor, userExtractor } = require('../utils/middleware')
 const { Product } = require('../models')
+const { Op } = require('sequelize')
 
 router.get('/', async (req, res) => {
-  const products = await Product.findAll({})
+  let where = {}
+  const filter = req.query.search
+  const category = req.query.category
+
+  if (filter) {
+    where = {
+      [Op.or]: [
+        {
+          title: {
+            [Op.iLike]: `%${filter}%`,
+          },
+        },
+        {
+          category: {
+            [Op.iLike]: `%${filter}%`,
+          },
+        },
+        {
+          description: {
+            [Op.iLike]: `%${filter}%`,
+          },
+        },
+      ],
+    }
+  }
+
+  if (category) {
+    where = {
+      category,
+    }
+  }
+  const products = await Product.findAll({ where })
   res.status(200).json(products)
 })
 
