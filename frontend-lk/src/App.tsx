@@ -7,16 +7,15 @@ import { Grid, CssBaseline } from '@mui/material'
 import SideCategoriesTabsDrawer from './components/SideCategoriesTabsDrawer'
 import ProductList from './components/ProductsList'
 import { useEffect } from 'react'
-import { useAppDispatch } from './hooks'
+import { useAppDispatch, useAppSelector } from './hooks'
 import { initiateCart } from './reducers/shoppingCartReducer'
 import { initiateUser } from './reducers/userLoginReducer'
 import ShoppingCart from './components/ShoppingCart'
 import SignIn from './components/SignIn'
 
-const categories = ['all', 'mouse', 'cat', 'sportswear', 'drinks', 'mushrooms']
-
 const App = () => {
   const dispatch = useAppDispatch()
+  const categories = useAppSelector((state) => state.general.categories)
 
   useEffect(() => {
     dispatch(initiateCart())

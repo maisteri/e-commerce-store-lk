@@ -4,11 +4,10 @@ import CategoriesTabs from './CategoriesTabs'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { setSideDrawerOpen } from '../reducers/siteGeneralReducer'
 
-const categories = ['all', 'mouse', 'cat', 'sportswear', 'drinks', 'mushrooms']
-
 const SideCategoriesTabsDrawer = () => {
   const dispatch = useAppDispatch()
   const open = useAppSelector((state) => state.general.sideDrawerOpen)
+  const categories = useAppSelector((state) => state.general.categories)
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
