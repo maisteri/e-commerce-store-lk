@@ -1,7 +1,12 @@
 import { styled, alpha } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
-import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../hooks'
+import {
+  getProductsByFilter,
+  setSearchFilter,
+} from '../reducers/siteGeneralReducer'
+import { useDebouncedCallback } from 'use-debounce'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -47,8 +52,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 const SearchBar = (): JSX.Element | null => {
-  const [filter, setFilter] = useState<string>('')
-  console.log(filter)
+  const dispatch = useAppDispatch()
+  const filter = useAppSelector((state) => state.general.searchFilter)
+  const debounced = useDebouncedCallback((newFiltervalue) => {
+    dispatch(getProductsByFilter(newFiltervalue))
+  }, 1000)
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -59,9 +68,12 @@ const SearchBar = (): JSX.Element | null => {
         placeholder='Search…'
         inputProps={{ 'aria-label': 'search' }}
         fullWidth
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setFilter(event.target.value)
-        }
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          const newFiltervalue = event.target.value
+          dispatch(setSearchFilter(newFiltervalue))
+          debounced(newFiltervalue)
+        }}
+        value={filter}
       />
     </Search>
   )

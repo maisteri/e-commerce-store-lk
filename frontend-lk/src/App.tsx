@@ -2,8 +2,6 @@ import { Routes, Route } from 'react-router-dom'
 import CategoriesTabs from './components/CategoriesTabs'
 import PrimaryAppBar from './components/PrimaryAppbar'
 import { Grid, CssBaseline } from '@mui/material'
-// import ProductCard from './components/ProductCard'
-// import ShoppingCart, { ShoppingCartItem } from './components/ShoppingCart'
 import SideCategoriesTabsDrawer from './components/SideCategoriesTabsDrawer'
 import ProductList from './components/ProductsList'
 import { useEffect } from 'react'
@@ -12,6 +10,10 @@ import { initiateCart } from './reducers/shoppingCartReducer'
 import { initiateUser } from './reducers/userLoginReducer'
 import ShoppingCart from './components/ShoppingCart'
 import SignIn from './components/SignIn'
+import {
+  initiateCategories,
+  initiateProducts,
+} from './reducers/siteGeneralReducer'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -20,6 +22,8 @@ const App = () => {
   useEffect(() => {
     dispatch(initiateCart())
     dispatch(initiateUser())
+    dispatch(initiateCategories())
+    dispatch(initiateProducts())
   }, [dispatch])
 
   return (

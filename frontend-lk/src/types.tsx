@@ -31,3 +31,14 @@ export interface UserData {
   token: string
   name: string
 }
+
+export interface InitialGeneralState {
+  sideDrawerOpen: boolean
+  categories: string[]
+  searchFilter: SearchFilter
+  categorySelected: CategorySelected
+  products: Product[]
+}
+
+export type SearchFilter = string
+export type CategorySelected = string

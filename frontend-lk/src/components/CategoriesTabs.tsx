@@ -1,5 +1,8 @@
 import * as React from 'react'
 import { Box, Tabs, Tab } from '@mui/material'
+import { useAppDispatch, useAppSelector } from '../hooks'
+import { getProductsByCategory } from '../reducers/siteGeneralReducer'
+import { useNavigate } from 'react-router-dom'
 
 interface CategoriesTabsProps {
   categories: Array<string>
@@ -9,11 +12,15 @@ interface CategoriesTabsProps {
 
 const CategoriesTabs = (props: CategoriesTabsProps) => {
   const [value, setValue] = React.useState(props.categories.length)
+  const dispatch = useAppDispatch()
+  const categories = useAppSelector((state) => state.general.categories)
+  const navigate = useNavigate()
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault()
     setValue(newValue)
-    console.log(newValue)
+    dispatch(getProductsByCategory(categories[newValue]))
+    navigate('/')
   }
 
   return (

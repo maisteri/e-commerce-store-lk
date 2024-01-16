@@ -3,6 +3,12 @@ const { adminExtractor, userExtractor } = require('../utils/middleware')
 const { Product } = require('../models')
 const { Op } = require('sequelize')
 
+router.get('/categories', async (req, res) => {
+  const products = await Product.findAll()
+  const categories = Array.from(new Set(products.map((p) => p.category)))
+  res.status(200).json(categories)
+})
+
 router.get('/', async (req, res) => {
   let where = {}
   const filter = req.query.search
