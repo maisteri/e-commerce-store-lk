@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { SECRET } = require('../utils/config')
 const { User } = require('../models')
 const { adminExtractor, userExtractor } = require('../utils/middleware')
 
@@ -41,12 +43,12 @@ router.post('/', async (req, res) => {
 
   const savedUser = await User.create(user)
 
-  const returnedUser = {
-    name: savedUser.name,
+  const payload = {
     id: savedUser.id,
   }
 
-  res.status(201).json(returnedUser)
+  const token = jwt.sign(payload, SECRET, { expiresIn: '30 days' })
+  res.status(201).json({ token, name: user.name })
 })
 
 router.put('/:id', userExtractor, async (req, res) => {

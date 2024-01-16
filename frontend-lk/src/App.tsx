@@ -14,6 +14,7 @@ import {
   initiateCategories,
   initiateProducts,
 } from './reducers/siteGeneralReducer'
+import SignUp from './components/SignUp'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -46,6 +47,7 @@ const App = () => {
             <Route path='/' element={<ProductList />} />
             <Route path='/cart' element={<ShoppingCart />} />
             <Route path='/signin' element={<SignIn />} />
+            <Route path='/signup' element={<SignUp />} />
           </Routes>
         </Grid>
         <Grid item xs={3}></Grid>

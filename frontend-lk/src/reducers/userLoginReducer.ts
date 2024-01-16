@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
-import { Credentials, UserData } from '../types'
+import signinService from '../services/signup'
+import { Credentials, UserData, NewUser } from '../types'
 import { AppThunk } from '../store'
 
 const initialState: UserData = { token: '', name: '' }
@@ -28,6 +29,14 @@ export const initiateUser = (): AppThunk => {
 export const loginUser = (credentials: Credentials): AppThunk => {
   return async (dispatch) => {
     const user = await loginService.login(credentials)
+    window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
+    dispatch(setUser(user))
+  }
+}
+
+export const createNewUserAndLogin = (newUserData: NewUser): AppThunk => {
+  return async (dispatch) => {
+    const user = await signinService.signup(newUserData)
     window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
     dispatch(setUser(user))
   }

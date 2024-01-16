@@ -32,6 +32,12 @@ export interface UserData {
   name: string
 }
 
+export interface NewUser {
+  name: string
+  username: string
+  password: string
+}
+
 export interface InitialGeneralState {
   sideDrawerOpen: boolean
   categories: string[]
