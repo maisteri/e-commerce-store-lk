@@ -3,6 +3,9 @@ import loginService from '../services/login'
 import signinService from '../services/signup'
 import { Credentials, UserData, NewUser } from '../types'
 import { AppThunk } from '../store'
+import axios from 'axios'
+import { notify } from './siteGeneralReducer'
+import { SUCCESSFUL_LOGIN, UNKNOWN_ERROR } from '../constants'
 
 const initialState: UserData = { token: '', name: '' }
 
@@ -28,9 +31,21 @@ export const initiateUser = (): AppThunk => {
 
 export const loginUser = (credentials: Credentials): AppThunk => {
   return async (dispatch) => {
-    const user = await loginService.login(credentials)
-    window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
-    dispatch(setUser(user))
+    let user: UserData
+    try {
+      user = await loginService.login(credentials)
+      window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
+      dispatch(setUser(user))
+      dispatch(notify(SUCCESSFUL_LOGIN))
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        dispatch(
+          notify({ message: err.response?.data.error, severity: 'error' })
+        )
+      } else {
+        dispatch(notify(UNKNOWN_ERROR))
+      }
+    }
   }
 }
 

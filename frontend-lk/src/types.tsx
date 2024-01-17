@@ -1,3 +1,5 @@
+import { AlertColor } from '@mui/material/Alert'
+
 export type UserId = string | null
 
 export type ProductId = number
@@ -44,6 +46,12 @@ export interface InitialGeneralState {
   searchFilter: SearchFilter
   categorySelected: CategorySelected
   products: Product[]
+  notification: NotificationIf
+}
+
+export interface NotificationIf {
+  message: string
+  severity: AlertColor
 }
 
 export type SearchFilter = string

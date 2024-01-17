@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { InitialGeneralState, Product } from '../types'
+import { InitialGeneralState, NotificationIf, Product } from '../types'
 import { AppThunk } from '../store'
 import productService from '../services/product'
+import { DISABLE_NOTIFICATION } from '../constants'
 
 const initialState: InitialGeneralState = {
   sideDrawerOpen: false,
@@ -10,6 +11,10 @@ const initialState: InitialGeneralState = {
   searchFilter: '',
   categorySelected: '',
   products: [],
+  notification: {
+    message: '',
+    severity: 'success',
+  },
 }
 
 const generalSlice = createSlice({
@@ -31,8 +36,20 @@ const generalSlice = createSlice({
     setProducts(state, action: PayloadAction<Product[]>) {
       state.products = action.payload
     },
+    setNotification(state, action: PayloadAction<NotificationIf>) {
+      state.notification = action.payload
+    },
   },
 })
+
+export const notify = (notification: NotificationIf): AppThunk => {
+  return async (dispatch) => {
+    dispatch(setNotification(notification))
+    setTimeout(() => {
+      dispatch(setNotification(DISABLE_NOTIFICATION))
+    }, 3000)
+  }
+}
 
 export const initiateCategories = (): AppThunk => {
   return async (dispatch) => {
@@ -68,6 +85,7 @@ export const {
   setSelectedCategory,
   setSearchFilter,
   setProducts,
+  setNotification,
 } = generalSlice.actions
 
 export default generalSlice.reducer

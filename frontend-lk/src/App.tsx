@@ -15,6 +15,7 @@ import {
   initiateProducts,
 } from './reducers/siteGeneralReducer'
 import SignUp from './components/SignUp'
+import Notification from './components/Notification'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -53,6 +54,7 @@ const App = () => {
         <Grid item xs={3}></Grid>
       </Grid>
       <SideCategoriesTabsDrawer />
+      <Notification />
     </>
   )
 }
