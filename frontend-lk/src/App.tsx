@@ -5,7 +5,7 @@ import { Grid, CssBaseline } from '@mui/material'
 import SideCategoriesTabsDrawer from './components/SideCategoriesTabsDrawer'
 import ProductList from './components/ProductsList'
 import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from './hooks'
+import { useAppDispatch } from './hooks'
 import { initiateCart } from './reducers/shoppingCartReducer'
 import { initiateUser } from './reducers/userLoginReducer'
 import ShoppingCart from './components/ShoppingCart'
@@ -19,7 +19,6 @@ import Notification from './components/Notification'
 
 const App = () => {
   const dispatch = useAppDispatch()
-  const categories = useAppSelector((state) => state.general.categories)
 
   useEffect(() => {
     dispatch(initiateCart())
@@ -36,11 +35,7 @@ const App = () => {
           <PrimaryAppBar />
         </Grid>
         <Grid item xs={12}>
-          <CategoriesTabs
-            categories={categories}
-            orientation='horizontal'
-            centered
-          />
+          <CategoriesTabs orientation='horizontal' centered />
         </Grid>
         <Grid item xs={3}></Grid>
         <Grid item xs={6}>

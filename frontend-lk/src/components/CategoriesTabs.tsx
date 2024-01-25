@@ -5,13 +5,12 @@ import { getProductsByCategory } from '../reducers/siteGeneralReducer'
 import { useNavigate } from 'react-router-dom'
 
 interface CategoriesTabsProps {
-  categories: Array<string>
   orientation: 'horizontal' | 'vertical'
   centered: boolean
 }
 
 const CategoriesTabs = (props: CategoriesTabsProps) => {
-  const [value, setValue] = React.useState(props.categories.length)
+  const [value, setValue] = React.useState(0)
   const dispatch = useAppDispatch()
   const categories = useAppSelector((state) => state.general.categories)
   const navigate = useNavigate()
@@ -40,7 +39,7 @@ const CategoriesTabs = (props: CategoriesTabsProps) => {
         orientation={props.orientation}
         centered={props.centered}
       >
-        {props.categories.map((category) => (
+        {categories.map((category) => (
           <Tab label={category} key={category} />
         ))}
       </Tabs>

@@ -7,7 +7,6 @@ import { setSideDrawerOpen } from '../reducers/siteGeneralReducer'
 const SideCategoriesTabsDrawer = () => {
   const dispatch = useAppDispatch()
   const open = useAppSelector((state) => state.general.sideDrawerOpen)
-  const categories = useAppSelector((state) => state.general.categories)
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -27,11 +26,7 @@ const SideCategoriesTabsDrawer = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <CategoriesTabs
-        categories={categories}
-        orientation='vertical'
-        centered={false}
-      />
+      <CategoriesTabs orientation='vertical' centered={false} />
     </Box>
   )
 
