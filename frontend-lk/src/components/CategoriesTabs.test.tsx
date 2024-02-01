@@ -7,10 +7,6 @@ import CategoriesTabs from '../components/CategoriesTabs'
 
 const categories = ['cat1', 'cat2', 'cat3']
 
-jest.mock('../reducers/siteGeneralReducer', () => ({
-  getProductsByCategory: jest.fn(),
-}))
-
 const navigate = jest.fn()
 jest.mock('react-router-dom', () => ({
   useNavigate: () => navigate,
@@ -21,6 +17,13 @@ jest.mock('../hooks', () => ({
   useAppDispatch: () => dispatch,
   useAppSelector: () => categories,
 }))
+
+jest.mock('../reducers/siteGeneralReducer', () => {
+  return {
+    getProductsByCategory: jest.fn(),
+  }
+})
+import { getProductsByCategory } from '../reducers/siteGeneralReducer'
 
 describe('<CategoriesTabs />', () => {
   it('renders correctly', () => {
@@ -38,8 +41,12 @@ describe('<CategoriesTabs />', () => {
     await user.click(button)
 
     expect(navigate.mock.calls).toHaveLength(1)
+    expect(navigate.mock.calls[0][0]).toBe('/')
+
     expect(dispatch.mock.calls).toHaveLength(1)
-    //expect(getProductsByCategory.mock.calls).toHaveLength(1)
+
+    expect(getProductsByCategory.mock.calls).toHaveLength(1)
+    expect(getProductsByCategory.mock.calls[0][0]).toBe('cat2')
 
     const { container } = render(
       <CategoriesTabs orientation='horizontal' centered={false} />
