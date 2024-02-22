@@ -47,6 +47,7 @@ export interface InitialGeneralState {
   categorySelected: CategorySelected
   products: Product[]
   notification: NotificationIf
+  sortOrder: SortOrder
 }
 
 export interface NotificationIf {
@@ -56,3 +57,5 @@ export interface NotificationIf {
 
 export type SearchFilter = string
 export type CategorySelected = string
+
+export type SortOrder = 'price, ascending' | 'price, descending' | 'rating' | ''

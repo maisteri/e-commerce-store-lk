@@ -1,29 +1,19 @@
-// import { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
-// import productService from '../services/product'
-// import { Product } from '../types'
+import { sortFunctions } from '../utils'
 import { useAppSelector } from '../hooks'
-// import { useDebounce } from 'use-debounce'
 
 const ProductList = () => {
   const products = useAppSelector((state) => state.general.products)
-  // const searchFilter = useAppSelector((state) => state.general.searchFilter)
-  // const [debouncedSearchFilter] = useDebounce(searchFilter, 1000)
+  const sortableProducts = [...products]
+  const sortOrder = useAppSelector((state) => state.general.sortOrder)
 
-  // useEffect(() => {
-  //   const fetchProductList = async () => {
-  //     const products = await productService.getAll({
-  //       category,
-  //       search: debouncedSearchFilter,
-  //     })
-  //     setProducts(products)
-  //   }
-  //   void fetchProductList()
-  // }, [category, debouncedSearchFilter])
+  if (sortOrder) {
+    sortableProducts.sort(sortFunctions[sortOrder])
+  }
 
   return (
     <>
-      {products.map((p) => (
+      {sortableProducts.map((p) => (
         <ProductCard key={p.title} {...p} />
       ))}
     </>

@@ -16,6 +16,7 @@ import {
 } from './reducers/siteGeneralReducer'
 import SignUp from './components/SignUp'
 import Notification from './components/Notification'
+import Sorter from './components/Sorter'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -37,6 +38,13 @@ const App = () => {
         <Grid item xs={12}>
           <CategoriesTabs orientation='horizontal' centered />
         </Grid>
+        <Grid item xs={3}></Grid>
+        <Grid item xs={3}>
+          <Routes>
+            <Route path='/' element={<Sorter />} />
+          </Routes>
+        </Grid>
+        <Grid item xs={6}></Grid>
         <Grid item xs={3}></Grid>
         <Grid item xs={6}>
           <Routes>

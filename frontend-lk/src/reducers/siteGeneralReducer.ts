@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { InitialGeneralState, NotificationIf, Product } from '../types'
+import {
+  InitialGeneralState,
+  NotificationIf,
+  Product,
+  SortOrder,
+} from '../types'
 import { AppThunk } from '../store'
 import productService from '../services/product'
 import { DISABLE_NOTIFICATION } from '../constants'
@@ -15,6 +20,7 @@ const initialState: InitialGeneralState = {
     message: '',
     severity: 'success',
   },
+  sortOrder: '',
 }
 
 const generalSlice = createSlice({
@@ -38,6 +44,9 @@ const generalSlice = createSlice({
     },
     setNotification(state, action: PayloadAction<NotificationIf>) {
       state.notification = action.payload
+    },
+    setSortOrder(state, action: PayloadAction<SortOrder>) {
+      state.sortOrder = action.payload
     },
   },
 })
@@ -86,6 +95,7 @@ export const {
   setSearchFilter,
   setProducts,
   setNotification,
+  setSortOrder,
 } = generalSlice.actions
 
 export default generalSlice.reducer
