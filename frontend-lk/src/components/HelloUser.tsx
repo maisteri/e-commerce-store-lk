@@ -6,7 +6,12 @@ const HelloUser = () => {
   const text = user.name || ''
 
   return (
-    <Typography noWrap component='div' variant='h6'>
+    <Typography
+      noWrap
+      component='div'
+      variant='h6'
+      sx={{ padding: '12px', float: 'left' }}
+    >
       {text}
     </Typography>
   )

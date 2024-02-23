@@ -25,6 +25,10 @@ const CategoriesTabs = (props: CategoriesTabsProps) => {
   return (
     <Box
       sx={{
+        position: 'fixed',
+        zIndex: 10,
+        marginTop: '64px',
+        paddingBottom: '20px',
         width: '100%',
         bgcolor: 'background.paper',
         display:

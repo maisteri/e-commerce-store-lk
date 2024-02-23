@@ -8,24 +8,27 @@ import {
 } from '../reducers/siteGeneralReducer'
 import { useDebouncedCallback } from 'use-debounce'
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  '& .MuiInputBase-root': {
-    display: 'flex',
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: '100%',
-  },
-}))
+const Search = styled('div')(({ theme }) => {
+  console.log(theme)
+  return {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    '& .MuiInputBase-root': {
+      display: 'flex',
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '40%',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing(3),
+      width: '60%',
+    },
+  }
+})
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),

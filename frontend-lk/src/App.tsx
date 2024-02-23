@@ -32,12 +32,10 @@ const App = () => {
     <>
       <CssBaseline enableColorScheme />
       <Grid container>
-        <Grid item xs={12}>
-          <PrimaryAppBar />
-        </Grid>
-        <Grid item xs={12}>
-          <CategoriesTabs orientation='horizontal' centered />
-        </Grid>
+        <PrimaryAppBar />
+
+        <CategoriesTabs orientation='horizontal' centered />
+
         <Grid item xs={3}></Grid>
         <Grid item xs={3}>
           <Routes>
@@ -46,7 +44,7 @@ const App = () => {
         </Grid>
         <Grid item xs={6}></Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{ marginTop: '60px' }}>
           <Routes>
             <Route path='/' element={<ProductList />} />
             <Route path='/cart' element={<ShoppingCart />} />

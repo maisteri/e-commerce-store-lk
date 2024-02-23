@@ -10,7 +10,7 @@ const BasicLogo = (props: LogoProps): JSX.Element => {
       src={props.path}
       variant='square'
       alt='E-Commerce Store LK logo'
-      sx={{ width: '90px', height: '56px' }}
+      sx={{ width: '90px', height: '64px' }}
     />
   )
 }
