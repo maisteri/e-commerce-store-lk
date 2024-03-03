@@ -1,7 +1,34 @@
 const router = require('express').Router()
 const { adminExtractor, userExtractor } = require('../utils/middleware')
-const { Product } = require('../models')
-const { Op } = require('sequelize')
+const { Product, Rating } = require('../models')
+const { Op, Sequelize } = require('sequelize')
+
+async function calculateAverageRating(productId) {
+  const result = await Rating.findAll({
+    where: { productId },
+    attributes: [
+      [Sequelize.fn('AVG', Sequelize.col('value')), 'averageRating'],
+    ],
+    raw: true,
+  })
+  if (result.length > 0) {
+    const averageRating = result[0].averageRating
+    return averageRating
+  } else {
+    return null
+  }
+}
+
+async function calculateHowManyRatings(productId) {
+  const result = await Rating.findAll({
+    where: { productId },
+  })
+  if (result.length > 0) {
+    return result.length
+  } else {
+    return null
+  }
+}
 
 router.get('/categories', async (req, res) => {
   const products = await Product.findAll()
@@ -41,7 +68,14 @@ router.get('/', async (req, res) => {
       category,
     }
   }
-  const products = await Product.findAll({ where })
+  const sequelizeProductData = await Product.findAll({ where })
+  const products = JSON.parse(JSON.stringify(sequelizeProductData))
+
+  for (const product of products) {
+    product.rating = await calculateAverageRating(product.id)
+    product.numberOfRatings = await calculateHowManyRatings(product.id)
+  }
+
   res.status(200).json(products)
 })
 
@@ -54,6 +88,12 @@ router.post('/', userExtractor, adminExtractor, async (req, res) => {
   }
   const newProduct = await Product.create(req.body)
   res.status(201).json(newProduct)
+})
+
+router.post('/:id/rating', userExtractor, async (req, res) => {
+  const newRating = { ...req.body, userId: req.user }
+  await Rating.create(newRating)
+  res.status(201).end()
 })
 
 router.put('/:id', userExtractor, adminExtractor, async (req, res) => {

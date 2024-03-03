@@ -6,12 +6,12 @@ import {
   Grid,
   Button,
   Typography,
-  Rating,
 } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { Product } from '../types'
 import { addItemToCart } from '../reducers/shoppingCartReducer'
+import BasicRating from './BasicRating'
 
 const ProductCard = (props: Product) => {
   const items = useAppSelector((state) => state.shoppingCart)
@@ -48,8 +48,10 @@ const ProductCard = (props: Product) => {
           </CardContent>
         </Grid>
         <Grid item xs={3}>
-          <Rating name='read-only' value={props.rating} readOnly />(
-          {props.numberOfRatings})
+          <BasicRating
+            rating={props.rating}
+            numberOfRatings={props.numberOfRatings}
+          />
           <CardActions>
             <Button
               variant='contained'
