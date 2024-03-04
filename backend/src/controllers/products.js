@@ -91,7 +91,7 @@ router.post('/', userExtractor, adminExtractor, async (req, res) => {
 })
 
 router.post('/:id/rating', userExtractor, async (req, res) => {
-  const newRating = { ...req.body, userId: req.user }
+  const newRating = { ...req.body, userId: req.user, productId: req.params.id }
   await Rating.create(newRating)
   res.status(201).end()
 })

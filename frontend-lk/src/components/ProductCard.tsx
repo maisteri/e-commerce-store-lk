@@ -51,6 +51,7 @@ const ProductCard = (props: Product) => {
           <BasicRating
             rating={props.rating}
             numberOfRatings={props.numberOfRatings}
+            productId={props.id}
           />
           <CardActions>
             <Button

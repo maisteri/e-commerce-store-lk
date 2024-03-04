@@ -20,7 +20,7 @@ const sortByRating = (productA: Product, productB: Product) => {
   if (productA.rating === productB.rating) {
     return 0
   }
-  return productA.rating - productB.rating
+  return productB.rating - productA.rating
 }
 
 export const sortFunctions = {

@@ -4,15 +4,28 @@ export type UserId = string | null
 
 export type ProductId = number
 
+type Rating = number
+
 export interface Product {
   id: ProductId
   title: string
   price: number
   description: string
   imageUrl: string
-  rating: number
+  rating: Rating
   numberOfRatings: number
   category: string
+}
+
+export interface postRatingParams {
+  rating: Rating
+  productId: ProductId
+}
+
+export interface RatingComponentProps {
+  rating: Rating
+  numberOfRatings: number
+  productId: ProductId
 }
 
 export type ShoppingCartItemId = number

@@ -14,3 +14,13 @@ export const UNKNOWN_ERROR: NotificationIf = {
   message: 'Unknown error',
   severity: 'error',
 }
+
+export const SUCCESSFUL_RATING: NotificationIf = {
+  message: 'Product rated! Thank you!',
+  severity: 'success',
+}
+
+export const UNSUCCESSFUL_RATING: NotificationIf = {
+  message: 'Something went wrong :/',
+  severity: 'error',
+}

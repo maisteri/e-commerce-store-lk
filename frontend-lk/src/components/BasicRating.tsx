@@ -1,14 +1,35 @@
 import * as React from 'react'
 import Rating from '@mui/material/Rating'
+import productService from '../services/product'
+import { RatingComponentProps } from '../types'
+import { useAppDispatch } from '../hooks'
+import { notify } from '../reducers/siteGeneralReducer'
+import { SUCCESSFUL_RATING, UNSUCCESSFUL_RATING } from '../constants'
 
-interface Props {
-  rating: number
-  numberOfRatings: number
-}
+const BasicRating = ({
+  rating,
+  numberOfRatings,
+  productId,
+}: RatingComponentProps) => {
+  const dispatch = useAppDispatch()
 
-const BasicRating = ({ rating, numberOfRatings }: Props) => {
-  const [value, setValue] = React.useState<number | null>(2)
-  console.log(value)
+  const handleChange = async (
+    _event: React.SyntheticEvent<Element, Event>,
+    value: number | null
+  ) => {
+    const newRating = value || rating
+    console.log('this is the rating given: ', newRating)
+    try {
+      await productService.postRating({
+        rating: newRating,
+        productId,
+      })
+      dispatch(notify(SUCCESSFUL_RATING))
+    } catch {
+      console.log('catched!')
+      dispatch(notify(UNSUCCESSFUL_RATING))
+    }
+  }
 
   return (
     <>
@@ -16,10 +37,7 @@ const BasicRating = ({ rating, numberOfRatings }: Props) => {
         name='product-rating'
         precision={1}
         value={Number(rating)}
-        onChange={(_event, newValue) => {
-          setValue(newValue)
-          console.log(newValue)
-        }}
+        onChange={handleChange}
       />
       ({numberOfRatings})
     </>
