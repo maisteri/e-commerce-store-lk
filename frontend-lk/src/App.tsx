@@ -37,16 +37,17 @@ const App = () => {
         <CategoriesTabs orientation='horizontal' centered />
 
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} sx={{ marginTop: '125px' }}>
           <Routes>
-            <Route path='/' element={<Sorter />} />
-          </Routes>
-        </Grid>
-        <Grid item xs={6}></Grid>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={6} sx={{ marginTop: '60px' }}>
-          <Routes>
-            <Route path='/' element={<ProductList />} />
+            <Route
+              path='/'
+              element={
+                <>
+                  <Sorter />
+                  <ProductList />
+                </>
+              }
+            />
             <Route path='/cart' element={<ShoppingCart />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
