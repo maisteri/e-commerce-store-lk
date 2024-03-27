@@ -17,6 +17,7 @@ import {
 import SignUp from './components/SignUp'
 import Notification from './components/Notification'
 import Sorter from './components/Sorter'
+import Checkout from './components/Checkout/Checkout'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -51,6 +52,7 @@ const App = () => {
             <Route path='/cart' element={<ShoppingCart />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
+            <Route path='/checkout' element={<Checkout />} />
           </Routes>
         </Grid>
         <Grid item xs={3}></Grid>

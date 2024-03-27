@@ -1,10 +1,10 @@
 import { Box, Toolbar, Typography } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import SearchBar from './SearchBar'
-import LoginButton from './buttons/LoginButton'
+import LoginButton from './Buttons/LoginButton'
 import Logo from './Logo'
-import ShoppingCartButton from './buttons/ShoppingCartButton'
-import MenuButton from './buttons/MenuButton'
+import ShoppingCartButton from './Buttons/ShoppingCartButton'
+import MenuButton from './Buttons/MenuButton'
 import { Link } from 'react-router-dom'
 import HelloUser from './HelloUser'
 

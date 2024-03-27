@@ -86,8 +86,12 @@ router.post('/', userExtractor, adminExtractor, async (req, res) => {
     }
     return res.status(204).end()
   }
-  const newProduct = await Product.create(req.body)
-  res.status(201).json(newProduct)
+  try {
+    const newProduct = await Product.create(req.body)
+    res.status(201).json(newProduct)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
 })
 
 router.post('/:id/rating', userExtractor, async (req, res) => {

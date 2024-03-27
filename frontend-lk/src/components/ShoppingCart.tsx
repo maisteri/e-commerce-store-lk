@@ -12,11 +12,12 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import BasicButton from './buttons/BasicButton'
+import BasicButton from './Buttons/BasicButton'
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { ShoppingCartItem, ShoppingCartItemId } from '../types'
 import { deleteItem, modifyItemQuantity } from '../reducers/shoppingCartReducer'
+import { useNavigate } from 'react-router-dom'
 
 function ccyFormat(num: number) {
   return `${num.toFixed(2)}`
@@ -30,6 +31,7 @@ function total(items: readonly ShoppingCartItem[]) {
 
 const ShoppingCart = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const items = useAppSelector((state) => state.shoppingCart)
   const invoiceTotal = total(items)
 
@@ -45,6 +47,8 @@ const ShoppingCart = () => {
       event.preventDefault
       dispatch(deleteItem(id))
     }
+
+  const handleCheckout = () => navigate('/checkout')
 
   return (
     <TableContainer component={Paper}>
@@ -107,7 +111,7 @@ const ShoppingCart = () => {
                 color='success'
                 name='CHECKOUT'
                 starIcon={<PointOfSaleIcon />}
-                onClick={() => console.log('CHECKOUT!')}
+                onClick={handleCheckout}
               ></BasicButton>
             </TableCell>
           </TableRow>

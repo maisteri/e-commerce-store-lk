@@ -61,6 +61,7 @@ export interface InitialGeneralState {
   products: Product[]
   notification: NotificationIf
   sortOrder: SortOrder
+  deliveryAddress: Address | null
 }
 
 export interface NotificationIf {
@@ -72,3 +73,12 @@ export type SearchFilter = string
 export type CategorySelected = string
 
 export type SortOrder = 'price, ascending' | 'price, descending' | 'rating' | ''
+
+export interface Address {
+  firstName: string
+  lastName: string
+  streetAddress: string
+  city: string
+  zip: string
+  country: string
+}

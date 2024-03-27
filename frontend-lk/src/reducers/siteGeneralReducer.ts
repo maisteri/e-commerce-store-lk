@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {
+  Address,
   InitialGeneralState,
   NotificationIf,
   Product,
@@ -8,7 +9,10 @@ import {
 } from '../types'
 import { AppThunk } from '../store'
 import productService from '../services/product'
-import { DISABLE_NOTIFICATION } from '../constants'
+import {
+  DISABLE_ERROR_NOTIFICATION,
+  DISABLE_SUCCESS_NOTIFICATION,
+} from '../constants'
 
 const initialState: InitialGeneralState = {
   sideDrawerOpen: false,
@@ -21,6 +25,7 @@ const initialState: InitialGeneralState = {
     severity: 'success',
   },
   sortOrder: '',
+  deliveryAddress: null,
 }
 
 const generalSlice = createSlice({
@@ -48,6 +53,9 @@ const generalSlice = createSlice({
     setSortOrder(state, action: PayloadAction<SortOrder>) {
       state.sortOrder = action.payload
     },
+    setDeliveryAddress(state, action: PayloadAction<Address>) {
+      state.deliveryAddress = action.payload
+    },
   },
 })
 
@@ -55,8 +63,14 @@ export const notify = (notification: NotificationIf): AppThunk => {
   return async (dispatch) => {
     dispatch(setNotification(notification))
     setTimeout(() => {
-      dispatch(setNotification(DISABLE_NOTIFICATION))
-    }, 3000)
+      dispatch(
+        setNotification(
+          notification.severity === 'success'
+            ? DISABLE_SUCCESS_NOTIFICATION
+            : DISABLE_ERROR_NOTIFICATION
+        )
+      )
+    }, 4000)
   }
 }
 
@@ -96,6 +110,7 @@ export const {
   setProducts,
   setNotification,
   setSortOrder,
+  setDeliveryAddress,
 } = generalSlice.actions
 
 export default generalSlice.reducer

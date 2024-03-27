@@ -4,7 +4,10 @@ import Snackbar from '@mui/material/Snackbar'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { setNotification } from '../reducers/siteGeneralReducer'
-import { DISABLE_NOTIFICATION } from '../constants'
+import {
+  DISABLE_ERROR_NOTIFICATION,
+  DISABLE_SUCCESS_NOTIFICATION,
+} from '../constants'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -21,13 +24,19 @@ const Notification = () => {
   const open = Boolean(message)
 
   const handleClose = (
-    event?: React.SyntheticEvent | Event,
+    _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
     if (reason === 'clickaway') {
       return
     }
-    dispatch(setNotification(DISABLE_NOTIFICATION))
+    dispatch(
+      setNotification(
+        notification.severity === 'success'
+          ? DISABLE_SUCCESS_NOTIFICATION
+          : DISABLE_ERROR_NOTIFICATION
+      )
+    )
   }
 
   return (
