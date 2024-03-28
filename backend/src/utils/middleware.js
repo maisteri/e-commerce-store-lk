@@ -37,6 +37,19 @@ const userExtractor = (req, res, next) => {
   next()
 }
 
+const userMaybeExtractor = (req, res, next) => {
+  const token = req.token
+  if (token) {
+    const decodedToken = jwt.verify(token, SECRET)
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token missing or invalid' })
+    }
+    req.user = decodedToken.id
+  }
+
+  next()
+}
+
 const cartExtractor = async (req, res, next) => {
   const sessionId = req.session.id
   const cart = await ShoppingCart.findOne({
@@ -80,6 +93,7 @@ const corsDevRules = (req, res, next) => {
 module.exports = {
   cartExtractor,
   userExtractor,
+  userMaybeExtractor,
   tokenExtractor,
   adminExtractor,
   errorHandler,

@@ -10,7 +10,19 @@ Address.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    firstName: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    lastName: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
     streetAddress: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    zip: {
       allowNull: false,
       type: DataTypes.STRING,
     },

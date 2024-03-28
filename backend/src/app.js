@@ -10,6 +10,8 @@ const loginRouter = require('./controllers/login')
 const usersRouter = require('./controllers/users')
 const productsRouter = require('./controllers/products')
 const cartRouter = require('./controllers/cart')
+const addressRouter = require('./controllers/address')
+const orderRouter = require('./controllers/order')
 const { tokenExtractor, errorHandler } = require('./utils/middleware')
 
 connectToDatabase()
@@ -54,6 +56,8 @@ app.use('/v1/api/login', loginRouter)
 app.use('/v1/api/users', usersRouter)
 app.use('/v1/api/products', productsRouter)
 app.use('/v1/api/cart', cartRouter)
+app.use('/v1/api/address', addressRouter)
+app.use('/v1/api/order', orderRouter)
 
 app.use(errorHandler)
 
