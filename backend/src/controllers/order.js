@@ -36,7 +36,8 @@ router.post('/', cartExtractor, userMaybeExtractor, async (req, res) => {
   cart.current = false
   cart.save()
 
-  res.json(order)
+  const orderId = order.id
+  res.json(orderId)
 })
 
 // Get all orders
@@ -62,7 +63,7 @@ router.get('/', userExtractor, adminExtractor, async (req, res) => {
 })
 
 // Update an order
-router.put('/:id', async (req, res) => {
+router.put('/:id', userExtractor, adminExtractor, async (req, res) => {
   const order = await Order.findByPk(req.params.id)
   if (order) {
     await order.update(req.body)
@@ -73,7 +74,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // Delete an order
-router.delete('/:id', adminExtractor, async (req, res) => {
+router.delete('/:id', userExtractor, adminExtractor, async (req, res) => {
   const order = await Order.findByPk(req.params.id)
   if (order) {
     await order.destroy()
