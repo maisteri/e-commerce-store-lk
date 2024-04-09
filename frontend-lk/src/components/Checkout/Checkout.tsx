@@ -7,40 +7,33 @@ import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Button from '@mui/material/Button'
-import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import AddressForm from './AddressForm'
 import PaymentForm from './PaymentForm'
 import Review from './Review'
-import { useAppDispatch } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks'
 import {
-  setDeliveryAddress,
+  saveDeliveryAddress,
+  removeDeliveryAddress,
   setNotification,
 } from '../../reducers/siteGeneralReducer'
 import { CREDIT_CARD_INFO } from '../../constants'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '../../utils'
-import { Address } from '../../types'
-
-function Copyright() {
-  return (
-    <Typography variant='body2' color='text.secondary' align='center'>
-      {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        LK e-commerce store
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+import { Address, Order, OrderId } from '../../types'
+import orderService from '../../services/order'
+import { setCart } from '../../reducers/shoppingCartReducer'
 
 const steps = ['Shipping address', 'Payment details', 'Review your order']
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0)
+  const [orderId, setOrderId] = React.useState<OrderId>()
   const dispatch = useAppDispatch()
+  const deliveryaddress = useAppSelector(
+    (state) => state.general.deliveryAddress
+  )
 
   const {
     handleSubmit,
@@ -65,11 +58,10 @@ export default function Checkout() {
   }
 
   const onSubmit = async (data: Address) => {
-    console.log('wadap', data)
-    dispatch(setDeliveryAddress(data))
+    dispatch(saveDeliveryAddress(data))
   }
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 0) {
       handleSubmit(onSubmit)()
     }
@@ -77,6 +69,20 @@ export default function Checkout() {
       dispatch(setNotification(CREDIT_CARD_INFO))
     }
     setActiveStep(activeStep + 1)
+
+    if (activeStep == 2) {
+      if (deliveryaddress) {
+        const order: Order = {
+          addressId: deliveryaddress.addressId,
+          deliveryMethod: 'budbee',
+          paymentMethod: 'creditcard',
+        }
+        const orderData: OrderId = await orderService.makeOrder(order)
+        setOrderId(orderData)
+        dispatch(setCart([]))
+        dispatch(removeDeliveryAddress())
+      }
+    }
   }
 
   const handleBack = () => {
@@ -107,9 +113,9 @@ export default function Checkout() {
                 Thank you for your order.
               </Typography>
               <Typography variant='subtitle1'>
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                Your order number is #{orderId}. We have emailed your order
+                confirmation (NOT really though since this is a fake store), and
+                will send you an update when your order has shipped.
               </Typography>
             </React.Fragment>
           ) : (
@@ -132,7 +138,6 @@ export default function Checkout() {
             </React.Fragment>
           )}
         </Paper>
-        <Copyright />
       </Container>
     </React.Fragment>
   )

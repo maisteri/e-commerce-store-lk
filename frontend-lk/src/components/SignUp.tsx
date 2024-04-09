@@ -16,25 +16,6 @@ import { useAppDispatch } from '../hooks'
 import { useNavigate } from 'react-router-dom'
 import { createNewUserAndLogin } from '../reducers/userLoginReducer'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
@@ -152,7 +133,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   )

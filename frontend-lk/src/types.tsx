@@ -61,7 +61,7 @@ export interface InitialGeneralState {
   products: Product[]
   notification: NotificationIf
   sortOrder: SortOrder
-  deliveryAddress: Address | null
+  deliveryAddress: AddressWithId | null
 }
 
 export interface NotificationIf {
@@ -74,6 +74,8 @@ export type CategorySelected = string
 
 export type SortOrder = 'price, ascending' | 'price, descending' | 'rating' | ''
 
+export type AddressId = number
+
 export interface Address {
   firstName: string
   lastName: string
@@ -81,4 +83,20 @@ export interface Address {
   city: string
   zip: string
   country: string
+}
+
+export interface AddressWithId extends Address {
+  addressId: AddressId
+}
+
+export type PaymentMethods = 'creditcard'
+
+export type DeliveryMethods = 'budbee'
+
+export type OrderId = number
+
+export interface Order {
+  addressId: AddressId
+  deliveryMethod: DeliveryMethods
+  paymentMethod: PaymentMethods
 }

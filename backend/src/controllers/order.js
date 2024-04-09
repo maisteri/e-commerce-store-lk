@@ -25,7 +25,12 @@ router.post('/', cartExtractor, userMaybeExtractor, async (req, res) => {
   }
 
   let newOrder = req.body
-  newOrder = { ...req.body, shoppingCartId: req.shoppingCartId }
+  newOrder = {
+    ...req.body,
+    shoppingCartId: req.shoppingCartId,
+    paymentStatus: false,
+    deliveryStatus: false,
+  }
   if (req.user) {
     newOrder = { ...newOrder, userId: req.user }
   }
