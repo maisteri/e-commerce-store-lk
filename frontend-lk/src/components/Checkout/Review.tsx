@@ -30,18 +30,20 @@ export default function Review() {
               primary={item.product.title}
               secondary={`Quantity: ${item.quantity}`}
             />
-            <Typography variant='body2'>
-              {item.product.price * item.quantity} €
+            <Typography variant='body2' minWidth={60}>
+              {`${item.product.price * item.quantity} €`}
             </Typography>
           </ListItem>
         ))}
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary='Total' />
           <Typography variant='subtitle1' sx={{ fontWeight: 700 }}>
-            {cart.reduce(
-              (total, item) => total + item.product.price * item.quantity,
-              0
-            )}{' '}
+            {cart
+              .reduce(
+                (total, item) => total + item.product.price * item.quantity,
+                0
+              )
+              .toFixed(2)}{' '}
             €
           </Typography>
         </ListItem>
