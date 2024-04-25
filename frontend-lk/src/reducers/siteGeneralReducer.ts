@@ -82,7 +82,8 @@ export const notify = (notification: NotificationIf): AppThunk => {
 export const initiateCategories = (): AppThunk => {
   return async (dispatch) => {
     const categories = await productService.getAllCategories()
-    dispatch(setCategories(categories))
+    const categoriesWithAll = ['all'].concat(categories)
+    dispatch(setCategories(categoriesWithAll))
   }
 }
 
@@ -95,7 +96,10 @@ export const initiateProducts = (): AppThunk => {
 
 export const getProductsByCategory = (category: string): AppThunk => {
   return async (dispatch) => {
-    const products = await productService.getAll({ category, search: '' })
+    const products = await productService.getAll({
+      category: category === 'all' ? '' : category,
+      search: '',
+    })
     dispatch(setProducts(products))
   }
 }
