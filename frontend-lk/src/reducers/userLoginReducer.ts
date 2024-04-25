@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
 import signinService from '../services/signup'
-import { Credentials, UserData, NewUser } from '../types'
+import { UserData, NewUser, CredentialsWithRemember } from '../types'
 import { AppThunk } from '../store'
 import axios from 'axios'
 import { notify } from './siteGeneralReducer'
@@ -29,12 +29,14 @@ export const initiateUser = (): AppThunk => {
   }
 }
 
-export const loginUser = (credentials: Credentials): AppThunk => {
+export const loginUser = (credentials: CredentialsWithRemember): AppThunk => {
   return async (dispatch) => {
     let user: UserData
+    const { username, password } = credentials
     try {
-      user = await loginService.login(credentials)
-      window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
+      user = await loginService.login({ username, password })
+      if (credentials.remember)
+        window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
       dispatch(setUser(user))
       dispatch(notify(SUCCESSFUL_LOGIN))
     } catch (err) {

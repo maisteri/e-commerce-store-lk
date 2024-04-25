@@ -26,10 +26,12 @@ export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
+    console.log(data.get('remember'))
     dispatch(
       loginUser({
         username: data.get('email') as string,
         password: data.get('password') as string,
+        remember: data.get('remember') === 'on' ? true : false,
       })
     )
     navigate('/')
@@ -80,7 +82,9 @@ export default function SignIn() {
               autoComplete='current-password'
             />
             <FormControlLabel
-              control={<Checkbox value='remember' color='primary' />}
+              control={
+                <Checkbox defaultChecked color='primary' name='remember' />
+              }
               label='Remember me'
             />
             <Button

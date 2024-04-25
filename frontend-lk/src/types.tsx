@@ -42,6 +42,12 @@ export interface Credentials {
   password: string
 }
 
+export interface CredentialsWithRemember {
+  username: string
+  password: string
+  remember: boolean
+}
+
 export interface UserData {
   token: string
   name: string
