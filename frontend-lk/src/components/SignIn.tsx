@@ -26,15 +26,14 @@ export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log(data.get('remember'))
     dispatch(
       loginUser({
         username: data.get('email') as string,
         password: data.get('password') as string,
         remember: data.get('remember') === 'on' ? true : false,
+        navigateToStore: () => navigate('/'),
       })
     )
-    navigate('/')
   }
 
   return (

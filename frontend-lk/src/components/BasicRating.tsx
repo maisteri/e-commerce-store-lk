@@ -4,7 +4,8 @@ import productService from '../services/product'
 import { RatingComponentProps } from '../types'
 import { useAppDispatch } from '../hooks'
 import { notify } from '../reducers/siteGeneralReducer'
-import { SUCCESSFUL_RATING, UNSUCCESSFUL_RATING } from '../constants'
+import { SUCCESSFUL_RATING } from '../constants'
+import axios from 'axios'
 
 const BasicRating = ({
   rating,
@@ -17,17 +18,23 @@ const BasicRating = ({
     _event: React.SyntheticEvent<Element, Event>,
     value: number | null
   ) => {
-    const newRating = value || rating
-    console.log('this is the rating given: ', newRating)
+    const newRating: number = value || Math.floor(rating)
     try {
       await productService.postRating({
         rating: newRating,
         productId,
       })
       dispatch(notify(SUCCESSFUL_RATING))
-    } catch {
-      console.log('catched!')
-      dispatch(notify(UNSUCCESSFUL_RATING))
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data.error
+        dispatch(
+          notify({
+            message: `NOTE! You must be logged in for rating. Error message: ${errorMessage}`,
+            severity: 'error',
+          })
+        )
+      }
     }
   }
 

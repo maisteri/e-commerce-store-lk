@@ -46,7 +46,10 @@ export interface CredentialsWithRemember {
   username: string
   password: string
   remember: boolean
+  navigateToStore: NavLink
 }
+
+export type NavLink = () => void
 
 export interface UserData {
   token: string

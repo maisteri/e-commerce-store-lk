@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
 import signinService from '../services/signup'
-import { UserData, NewUser, CredentialsWithRemember } from '../types'
+import { UserData, NewUser, CredentialsWithRemember, NavLink } from '../types'
 import { AppThunk } from '../store'
 import axios from 'axios'
 import { notify } from './siteGeneralReducer'
@@ -33,12 +33,14 @@ export const loginUser = (credentials: CredentialsWithRemember): AppThunk => {
   return async (dispatch) => {
     let user: UserData
     const { username, password } = credentials
+    const { navigateToStore } = credentials
     try {
       user = await loginService.login({ username, password })
       if (credentials.remember)
         window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
       dispatch(setUser(user))
       dispatch(notify(SUCCESSFUL_LOGIN))
+      navigateToStore()
     } catch (err) {
       if (axios.isAxiosError(err)) {
         dispatch(
@@ -51,11 +53,24 @@ export const loginUser = (credentials: CredentialsWithRemember): AppThunk => {
   }
 }
 
-export const createNewUserAndLogin = (newUserData: NewUser): AppThunk => {
+export const createNewUserAndLogin = (
+  newUserData: NewUser,
+  navigateToStore: NavLink
+): AppThunk => {
   return async (dispatch) => {
-    const user = await signinService.signup(newUserData)
-    window.localStorage.setItem('loggedLKAppUser', JSON.stringify(user))
-    dispatch(setUser(user))
+    try {
+      const user = await signinService.signup(newUserData)
+      dispatch(setUser(user))
+      navigateToStore()
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        dispatch(
+          notify({ message: err.response?.data.error, severity: 'error' })
+        )
+      } else {
+        dispatch(notify(UNKNOWN_ERROR))
+      }
+    }
   }
 }
 

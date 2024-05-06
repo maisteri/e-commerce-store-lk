@@ -31,9 +31,8 @@ export default function SignUp() {
       username: data.get('email') as string,
       password: data.get('password') as string,
     }
-    //console.log(newUser)
-    dispatch(createNewUserAndLogin(newUser))
-    navigate('/')
+    const navigateToStore = () => navigate('/')
+    dispatch(createNewUserAndLogin(newUser, navigateToStore))
   }
 
   return (
