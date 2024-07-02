@@ -52,6 +52,7 @@ app.use(
 app.use(express.json())
 app.use(tokenExtractor)
 app.use(express.static('dist'))
+console.log(__dirname)
 
 app.use('/v1/api/login', loginRouter)
 app.use('/v1/api/users', usersRouter)
