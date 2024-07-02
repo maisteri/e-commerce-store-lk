@@ -45,7 +45,10 @@ sessionStore.sync()
 
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Replace with the origin you want to allow
+    origin:
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:5173'
+        : 'https://e-commerce-store-lk.onrender.com',
     credentials: true,
   })
 )
