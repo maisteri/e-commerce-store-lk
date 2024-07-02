@@ -37,8 +37,8 @@ const App = () => {
 
         <CategoriesTabs orientation='horizontal' centered />
 
-        <Grid item xs={3}></Grid>
-        <Grid item xs={6} sx={{ marginTop: '125px' }}>
+        <Grid item md={3}></Grid>
+        <Grid item md={6} sx={{ marginTop: '125px' }}>
           <Routes>
             <Route
               path='/'
@@ -55,7 +55,7 @@ const App = () => {
             <Route path='/checkout' element={<Checkout />} />
           </Routes>
         </Grid>
-        <Grid item xs={3}></Grid>
+        <Grid item md={3}></Grid>
       </Grid>
       <SideCategoriesTabsDrawer />
       <Notification />

@@ -24,17 +24,17 @@ const ProductCard = (props: Product) => {
   }
 
   return (
-    <Card sx={{ margin: 2 }} raised>
-      <Grid container spacing={2}>
-        <Grid item xs={2}>
+    <Card sx={{ margin: 2, width: { xs: 400, md: 'auto' } }} raised>
+      <Grid container spacing={2} sx={{ flexDirection: 'row' }}>
+        <Grid item md={4} lg={2}>
           <CardMedia
-            sx={{ padding: 2 }}
+            sx={{ padding: 2, maxWidth: 200 }}
             image={props.imageUrl}
             title={props.title}
             component='img'
           />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item md={4} lg={7}>
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
               {props.title}
@@ -47,7 +47,7 @@ const ProductCard = (props: Product) => {
             </Typography>
           </CardContent>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item md={4} lg={3}>
           <BasicRating
             rating={props.rating}
             numberOfRatings={props.numberOfRatings}
