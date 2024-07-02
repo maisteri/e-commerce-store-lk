@@ -51,6 +51,7 @@ app.use(
 // app.use(corsDevRules)
 app.use(express.json())
 app.use(tokenExtractor)
+app.use(express.static('dist'))
 
 app.use('/v1/api/login', loginRouter)
 app.use('/v1/api/users', usersRouter)

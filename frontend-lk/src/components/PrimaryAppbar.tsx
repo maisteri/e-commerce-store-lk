@@ -20,7 +20,13 @@ export default function PrimaryAppBar() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             <Link to={'/'}>
-              <Logo path='/src/data/lk_logo.jpg' />
+              <Logo
+                path={
+                  process.env.NODE_ENV === 'development'
+                    ? 'src/data/lk_logo.jpg'
+                    : 'lk_logo.jpg'
+                }
+              />
             </Link>
           </Typography>
           <SearchBar />
