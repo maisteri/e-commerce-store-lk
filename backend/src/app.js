@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const session = require('express-session')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const cors = require('cors')
@@ -51,7 +52,7 @@ app.use(
 // app.use(corsDevRules)
 app.use(express.json())
 app.use(tokenExtractor)
-app.use(express.static('dist'))
+app.use(express.static(path.join(__dirname, '..', 'dist')))
 console.log(__dirname)
 
 app.use('/v1/api/login', loginRouter)
