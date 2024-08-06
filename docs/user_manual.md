@@ -6,7 +6,7 @@
 
 Functionality available at landing page
 
-![landing_page](https://raw.githubusercontent.com/maisteri/e-commerce-store-lk/master/docs/pics/landingPage.png)
+![landing_page](https://github.com/maisteri/e-commerce-store-lk/blob/master/docs/pics/landingPage.png?raw=true)
 
 - product browsing
 - product filtering by category
@@ -21,7 +21,7 @@ Functionality available at landing page
 
 Functionality available at shopping cart page
 
-![shopping_cart](https://raw.githubusercontent.com/maisteri/e-commerce-store-lk/master/docs/pics/shoppingCart.png)
+![shopping_cart](https://github.com/maisteri/e-commerce-store-lk/blob/master/docs/pics/shoppingCart.png?raw=true)
 
 - add / subtract quantity of product in cart
 - delete product from cart
