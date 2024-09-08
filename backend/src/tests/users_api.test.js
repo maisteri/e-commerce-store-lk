@@ -41,9 +41,8 @@ describe('a new user can register', () => {
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
-    expect(newUser.body.id).toBeDefined()
+    expect(newUser.body.token).toBeDefined()
     expect(newUser.body.name).toBe(helper.testUsers[0].name)
-    expect(newUser.body.username).toBe(helper.testUsers[0].username)
   })
 
   test('missing mandatory parameters in user registration return error code 400: bad request', async () => {

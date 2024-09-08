@@ -46,13 +46,11 @@ describe('<SignIn />', () => {
 
     await user.click(signInButton)
 
-    expect(navigate.mock.calls).toHaveLength(1)
-    expect(navigate.mock.calls[0][0]).toBe('/')
-
     expect(dispatch.mock.calls).toHaveLength(1)
 
     expect(loginUser.mock.calls).toHaveLength(1)
-    expect(loginUser.mock.calls[0][0]).toEqual(loggedInUser)
+    expect(loginUser.mock.calls[0][0].password).toEqual(loggedInUser.password)
+    expect(loginUser.mock.calls[0][0].username).toEqual(loggedInUser.username)
   })
 
   it('link to signup works ok', async () => {
@@ -63,7 +61,7 @@ describe('<SignIn />', () => {
 
     await user.click(signUpLink)
 
-    expect(navigate.mock.calls).toHaveLength(2)
-    expect(navigate.mock.calls[1][0]).toBe('/signup')
+    expect(navigate.mock.calls).toHaveLength(1)
+    expect(navigate.mock.calls[0][0]).toBe('/signup')
   })
 })

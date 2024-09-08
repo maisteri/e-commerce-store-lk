@@ -303,20 +303,6 @@ exports[`<SignUp /> renders correctly 1`] = `
         </div>
       </form>
     </div>
-    <p
-      class="MuiTypography-root MuiTypography-body2 MuiTypography-alignCenter css-5k114j-MuiTypography-root"
-    >
-      Copyright © 
-      <a
-        class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-xdxgn1-MuiTypography-root-MuiLink-root"
-        href="https://mui.com/"
-      >
-        Your Website
-      </a>
-       
-      2024
-      .
-    </p>
   </main>
 </div>
 `;

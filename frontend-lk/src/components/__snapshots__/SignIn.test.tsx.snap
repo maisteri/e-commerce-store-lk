@@ -130,23 +130,24 @@ exports[`<SignIn /> renders correctly 1`] = `
           class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
         >
           <span
-            class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+            class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
           >
             <input
+              checked=""
               class="PrivateSwitchBase-input css-1m9pwf3"
               data-indeterminate="false"
+              name="remember"
               type="checkbox"
-              value="remember"
             />
             <svg
               aria-hidden="true"
               class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-              data-testid="CheckBoxOutlineBlankIcon"
+              data-testid="CheckBoxIcon"
               focusable="false"
               viewBox="0 0 24 24"
             >
               <path
-                d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
               />
             </svg>
             <span
@@ -174,14 +175,7 @@ exports[`<SignIn /> renders correctly 1`] = `
         >
           <div
             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true css-1vd824g-MuiGrid-root"
-          >
-            <a
-              class="MuiTypography-root MuiTypography-body2 MuiLink-root MuiLink-underlineAlways css-101ca9i-MuiTypography-root-MuiLink-root"
-              href="#"
-            >
-              Forgot password?
-            </a>
-          </div>
+          />
           <div
             class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
           >
@@ -195,20 +189,6 @@ exports[`<SignIn /> renders correctly 1`] = `
         </div>
       </form>
     </div>
-    <p
-      class="MuiTypography-root MuiTypography-body2 MuiTypography-alignCenter css-ijul54-MuiTypography-root"
-    >
-      Copyright © 
-      <a
-        class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-xdxgn1-MuiTypography-root-MuiLink-root"
-        href="https://mui.com/"
-      >
-        Your Website
-      </a>
-       
-      2024
-      .
-    </p>
   </main>
 </div>
 `;

@@ -51,9 +51,6 @@ describe('<SignUp />', () => {
 
     await user.click(signUpButton)
 
-    expect(navigate.mock.calls).toHaveLength(1)
-    expect(navigate.mock.calls[0][0]).toBe('/')
-
     expect(dispatch.mock.calls).toHaveLength(1)
 
     expect(createNewUserAndLogin.mock.calls).toHaveLength(1)

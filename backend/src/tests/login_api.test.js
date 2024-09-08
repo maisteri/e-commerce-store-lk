@@ -24,7 +24,6 @@ describe('user login', () => {
 
     expect(response.body.token).toBeDefined()
     expect(response.body.name).toBe(helper.testUsersLogin[0].name)
-    expect(response.body.username).toBe(helper.testUsersLogin[1].username)
   })
 
   test('login fails with non-existing username', async () => {

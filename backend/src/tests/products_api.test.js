@@ -34,6 +34,8 @@ describe('products can be fetched', () => {
       delete product.id
       delete product.createdAt
       delete product.updatedAt
+      delete product.numberOfRatings
+      delete product.rating
       return product
     })
     expect(body).toEqual(expect.arrayContaining(helper.testProducts))
