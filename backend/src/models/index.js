@@ -27,13 +27,13 @@ Order.belongsTo(ShoppingCart)
 Order.belongsTo(User)
 Order.belongsTo(Address)
 
-// User.sync({ alter: true })
-// Address.sync({ alter: true })
-// Product.sync({ alter: true })
-// Rating.sync({ alter: true })
-// ShoppingCart.sync({ alter: true })
-// ShoppingCartItem.sync({ alter: true })
-// Order.sync({ alter: true })
+User.sync({ alter: true })
+Address.sync({ alter: true })
+Product.sync({ alter: true })
+Rating.sync({ alter: true })
+ShoppingCart.sync({ alter: true })
+ShoppingCartItem.sync({ alter: true })
+Order.sync({ alter: true })
 
 module.exports = {
   User,

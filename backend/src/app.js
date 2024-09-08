@@ -31,13 +31,11 @@ app.use(
   session({
     secret: SECRET,
     store: sessionStore,
-    resave: false, // we support the touch method so per the express-session docs this should be set to false
-    proxy: false, // if you do SSL outside of node.
+    resave: false,
+    proxy: false,
     cookie: {
       httpOnly: true,
-      expires: new Date(Date.now() + 3600000000), // Set the expire date to 1000 hour from now
-      // secure: true,
-      // sameSite: 'none',
+      expires: new Date(Date.now() + 3600000000),
     },
   })
 )
