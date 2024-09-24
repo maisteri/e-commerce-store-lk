@@ -32,6 +32,18 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Username exists.' })
   }
 
+  if (name.length < 2 && name.length > 50) {
+    return res
+      .status(400)
+      .json({ error: 'Name must be between 2 and 50 letters.' })
+  }
+
+  if (password.length < 8) {
+    return res
+      .status(400)
+      .json({ error: 'Password length must be at least 8 letters.' })
+  }
+
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 

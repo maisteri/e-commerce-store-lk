@@ -13,13 +13,26 @@ User.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        is: {
+          args: /^[a-zA-ZäöåÄÖÅ]+\s[a-zA-ZäöåÄÖÅ]+$/,
+          msg: 'Name can only contain alphabets. Both first and last name must be present. ',
+        },
+        len: {
+          args: [3, 50],
+          msg: 'Name must be between 2 and 50 characters long. ',
+        },
+      },
     },
     username: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
       validate: {
-        isEmail: true,
+        isEmail: {
+          args: true,
+          msg: 'Email address must be a valid. ',
+        },
       },
     },
     passwordHash: {
