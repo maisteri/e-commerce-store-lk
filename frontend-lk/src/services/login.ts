@@ -1,6 +1,6 @@
 import { Credentials, UserData } from '../types'
 import axios from './index'
-const apiBaseUrl = import.meta.env.VITE_API_URL
+import { apiBaseUrl } from '../config'
 const resource = 'login'
 
 const login = async (credentials: Credentials) => {

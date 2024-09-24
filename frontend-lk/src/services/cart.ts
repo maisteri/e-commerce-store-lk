@@ -1,7 +1,7 @@
 import axios from './index'
 import { ProductId, ShoppingCartItem, ShoppingCartItemId } from '../types'
 
-const apiBaseUrl = import.meta.env.VITE_API_URL
+import { apiBaseUrl } from '../config'
 const resource = 'cart'
 
 const listItems = async () => {

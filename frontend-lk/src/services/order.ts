@@ -1,7 +1,8 @@
 import { OrderId, Order } from '../types'
 import axios from './index'
-const apiBaseUrl = import.meta.env.VITE_API_URL
+import { apiBaseUrl } from '../config'
 const resource = 'order'
+console.log('ATTE: ', apiBaseUrl)
 
 const makeOrder = async (order: Order) => {
   const response = await axios.post<OrderId>(`${apiBaseUrl}/${resource}`, order)

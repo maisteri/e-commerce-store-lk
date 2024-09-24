@@ -6,7 +6,7 @@ import {
   postRatingParams,
 } from '../types'
 
-const apiBaseUrl = import.meta.env.VITE_API_URL
+import { apiBaseUrl } from '../config'
 
 interface Params {
   category: CategorySelected

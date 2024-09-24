@@ -6,7 +6,7 @@ const cors = require('cors')
 require('express-async-errors')
 
 const { connectToDatabase, sequelize } = require('./utils/db')
-const { SECRET } = require('./utils/config')
+const { SECRET, NODE_ENV } = require('./utils/config')
 const loginRouter = require('./controllers/login')
 const usersRouter = require('./controllers/users')
 const productsRouter = require('./controllers/products')
@@ -44,7 +44,7 @@ sessionStore.sync()
 app.use(
   cors({
     origin:
-      process.env.NODE_ENV === 'development'
+      NODE_ENV === 'development'
         ? 'http://localhost:5173'
         : 'https://e-commerce-store-lk.onrender.com',
     credentials: true,

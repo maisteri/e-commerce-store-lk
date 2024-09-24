@@ -1,6 +1,6 @@
 import { NewUser, UserData } from '../types'
 import axios from './index'
-const apiBaseUrl = import.meta.env.VITE_API_URL
+import { apiBaseUrl } from '../config'
 const resource = 'users'
 
 const signup = async (newUserData: NewUser) => {
