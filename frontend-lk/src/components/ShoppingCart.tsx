@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from '../hooks'
 import { ShoppingCartItem, ShoppingCartItemId } from '../types'
 import { deleteItem, modifyItemQuantity } from '../reducers/shoppingCartReducer'
 import { useNavigate } from 'react-router-dom'
+import { notify } from '../reducers/siteGeneralReducer'
 
 function ccyFormat(num: number) {
   return `${num.toFixed(2)}`
@@ -48,7 +49,18 @@ const ShoppingCart = () => {
       dispatch(deleteItem(id))
     }
 
-  const handleCheckout = () => navigate('/checkout')
+  const handleCheckout = () => {
+    if (items.length === 0) {
+      dispatch(
+        notify({
+          message: `Your shopping cart is empty.`,
+          severity: 'error',
+        })
+      )
+    } else {
+      navigate('/checkout')
+    }
+  }
 
   return (
     <TableContainer component={Paper}>
