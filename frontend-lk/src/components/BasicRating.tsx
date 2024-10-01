@@ -27,10 +27,9 @@ const BasicRating = ({
       dispatch(notify(SUCCESSFUL_RATING))
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const errorMessage = error.response?.data.error
         dispatch(
           notify({
-            message: `NOTE! You must be logged in for rating. Error message: ${errorMessage}`,
+            message: `NOTE! You must be logged in for rating.`,
             severity: 'error',
           })
         )
