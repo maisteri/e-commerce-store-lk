@@ -32,6 +32,6 @@ export const UNSUCCESSFUL_RATING: NotificationIf = {
 
 export const CREDIT_CARD_INFO: NotificationIf = {
   message:
-    "Credit card info not saved. This is a fake store. Don't insert real credit card info!",
+    "Credit card info not saved into database. This is a fake store. Don't insert real credit card info!",
   severity: 'error',
 }

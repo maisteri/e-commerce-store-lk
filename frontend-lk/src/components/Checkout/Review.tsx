@@ -31,8 +31,8 @@ export default function Review() {
               primary={item.product.title}
               secondary={`Quantity: ${item.quantity}`}
             />
-            <Typography variant='body2' minWidth={60}>
-              {`${item.product.price * item.quantity} €`}
+            <Typography variant='body2' minWidth={100} sx={{ paddingLeft: 2 }}>
+              {`${item.product.price * item.quantity}€`}
             </Typography>
           </ListItem>
         ))}
@@ -44,8 +44,7 @@ export default function Review() {
                 (total, item) => total + item.product.price * item.quantity,
                 0
               )
-              .toFixed(2)}{' '}
-            €
+              .toFixed(2) + '€'}
           </Typography>
         </ListItem>
       </List>

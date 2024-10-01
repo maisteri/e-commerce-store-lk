@@ -96,9 +96,9 @@ const ShoppingCart = () => {
                   <RemoveIcon fontSize='inherit' />
                 </IconButton>
               </TableCell>
-              <TableCell>{item.product.price}</TableCell>
+              <TableCell>{item.product.price + '€'}</TableCell>
               <TableCell>
-                {ccyFormat(item.quantity * item.product.price)}
+                {ccyFormat(item.quantity * item.product.price) + '€'}
               </TableCell>
               <TableCell>
                 <IconButton
@@ -116,7 +116,7 @@ const ShoppingCart = () => {
             <TableCell colSpan={1}>
               <b>Total</b>
             </TableCell>
-            <TableCell>{ccyFormat(invoiceTotal)}</TableCell>
+            <TableCell>{ccyFormat(invoiceTotal) + '€'}</TableCell>
             <TableCell>
               {' '}
               <BasicButton

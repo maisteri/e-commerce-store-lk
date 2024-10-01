@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import { Control, Controller, FieldErrors } from 'react-hook-form'
 import { Payment } from '../../types'
+import { useAppSelector } from '../../hooks'
 
 interface PaymentFormProps {
   control: Control<Payment>
@@ -11,6 +12,8 @@ interface PaymentFormProps {
 }
 
 export default function PaymentForm({ errors, control }: PaymentFormProps) {
+  const paymentInfo = useAppSelector((state) => state.general.paymentInfo)
+
   return (
     <React.Fragment>
       <Typography variant='h6' gutterBottom>
@@ -21,7 +24,7 @@ export default function PaymentForm({ errors, control }: PaymentFormProps) {
           <Controller
             name='nameOnCard'
             control={control}
-            defaultValue={''}
+            defaultValue={paymentInfo?.nameOnCard || ''}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -41,7 +44,7 @@ export default function PaymentForm({ errors, control }: PaymentFormProps) {
           <Controller
             name='cardNumber'
             control={control}
-            defaultValue={''}
+            defaultValue={paymentInfo?.cardNumber || ''}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -61,7 +64,7 @@ export default function PaymentForm({ errors, control }: PaymentFormProps) {
           <Controller
             name='expiryDate'
             control={control}
-            defaultValue={''}
+            defaultValue={paymentInfo?.expiryDate || ''}
             render={({ field }) => (
               <TextField
                 {...field}
