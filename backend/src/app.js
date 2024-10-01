@@ -54,7 +54,8 @@ app.use(
 app.use(express.json())
 app.use(tokenExtractor)
 app.use(express.static(path.join(__dirname, '..', 'dist')))
-console.log(__dirname)
+console.log('DIR_NAME: ', __dirname)
+console.log('ENVI: ', NODE_ENV)
 
 app.use('/v1/api/login', loginRouter)
 app.use('/v1/api/users', usersRouter)

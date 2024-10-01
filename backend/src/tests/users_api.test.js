@@ -45,7 +45,7 @@ describe('a new user can register', () => {
       .send(helper.testUsers[3])
       .expect(400)
 
-    expect(response.body.error[0]).toBe('Validation isEmail on username failed')
+    expect(response.body.error[0]).toBe('Email address must be a valid. ')
   })
 })
 
