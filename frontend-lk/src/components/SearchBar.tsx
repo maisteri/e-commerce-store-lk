@@ -9,7 +9,6 @@ import {
 import { useDebouncedCallback } from 'use-debounce'
 
 const Search = styled('div')(({ theme }) => {
-  console.log(theme)
   return {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
