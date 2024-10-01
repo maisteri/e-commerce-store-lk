@@ -6,16 +6,17 @@ import ListItemText from '@mui/material/ListItemText'
 import Grid from '@mui/material/Grid'
 import { useAppSelector } from '../../hooks'
 
-const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
-]
-
 export default function Review() {
   const cart = useAppSelector((state) => state.shoppingCart)
   const address = useAppSelector((state) => state.general.deliveryAddress)
+  const paymentInfo = useAppSelector((state) => state.general.paymentInfo)
+
+  const payments = [
+    { name: 'Card type', detail: 'Credit Card' },
+    { name: 'Card holder', detail: paymentInfo?.nameOnCard },
+    { name: 'Card number', detail: paymentInfo?.cardNumber },
+    { name: 'Expiry date', detail: paymentInfo?.expiryDate },
+  ]
 
   return (
     <React.Fragment>

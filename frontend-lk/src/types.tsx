@@ -71,6 +71,7 @@ export interface InitialGeneralState {
   notification: NotificationIf
   sortOrder: SortOrder
   deliveryAddress: AddressWithId | null
+  paymentInfo: Payment | null
 }
 
 export interface NotificationIf {
@@ -92,6 +93,13 @@ export interface Address {
   city: string
   zip: string
   country: string
+}
+
+export interface Payment {
+  nameOnCard: string
+  cardNumber: string
+  expiryDate: string
+  cvv: string
 }
 
 export interface AddressWithId extends Address {

@@ -4,24 +4,11 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { Control, Controller, FieldErrors } from 'react-hook-form'
 import { useAppSelector } from '../../hooks'
+import { Address } from '../../types'
 
 interface AddressFormProps {
-  control: Control<{
-    firstName: string
-    lastName: string
-    streetAddress: string
-    city: string
-    zip: string
-    country: string
-  }>
-  errors: FieldErrors<{
-    firstName: string
-    lastName: string
-    streetAddress: string
-    city: string
-    zip: string
-    country: string
-  }>
+  control: Control<Address>
+  errors: FieldErrors<Address>
 }
 
 const AddressForm = ({ errors, control }: AddressFormProps) => {

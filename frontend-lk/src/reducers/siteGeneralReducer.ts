@@ -5,6 +5,7 @@ import {
   AddressWithId,
   InitialGeneralState,
   NotificationIf,
+  Payment,
   Product,
   SortOrder,
 } from '../types'
@@ -28,6 +29,7 @@ const initialState: InitialGeneralState = {
   },
   sortOrder: '',
   deliveryAddress: null,
+  paymentInfo: null,
 }
 
 const generalSlice = createSlice({
@@ -57,6 +59,9 @@ const generalSlice = createSlice({
     },
     setDeliveryAddress(state, action: PayloadAction<AddressWithId>) {
       state.deliveryAddress = action.payload
+    },
+    setPaymentInfo(state, action: PayloadAction<Payment>) {
+      state.paymentInfo = action.payload
     },
     removeDeliveryAddress(state) {
       state.deliveryAddress = null
@@ -128,6 +133,7 @@ export const {
   setSortOrder,
   setDeliveryAddress,
   removeDeliveryAddress,
+  setPaymentInfo,
 } = generalSlice.actions
 
 export default generalSlice.reducer

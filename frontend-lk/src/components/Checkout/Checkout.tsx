@@ -11,17 +11,20 @@ import Typography from '@mui/material/Typography'
 import AddressForm from './AddressForm'
 import PaymentForm from './PaymentForm'
 import Review from './Review'
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import {
+  useAddressForm,
+  useAppDispatch,
+  useAppSelector,
+  usePaymentForm,
+} from '../../hooks'
 import {
   saveDeliveryAddress,
+  setPaymentInfo,
   removeDeliveryAddress,
   setNotification,
 } from '../../reducers/siteGeneralReducer'
 import { CREDIT_CARD_INFO } from '../../constants'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { schema } from '../../utils'
-import { Address, Order, OrderId } from '../../types'
+import { Address, Order, OrderId, Payment } from '../../types'
 import orderService from '../../services/order'
 import { setCart } from '../../reducers/shoppingCartReducer'
 
@@ -35,21 +38,17 @@ export default function Checkout() {
     (state) => state.general.deliveryAddress
   )
 
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    mode: 'onBlur',
-  })
+  const { handleAddressSubmit, addressControl, addressErrors } =
+    useAddressForm()
+  const { handlePaymentSubmit, paymentControl, paymentErrors } =
+    usePaymentForm()
 
   function getStepContent(step: number) {
     switch (step) {
       case 0:
-        return <AddressForm control={control} errors={errors} />
+        return <AddressForm control={addressControl} errors={addressErrors} />
       case 1:
-        return <PaymentForm />
+        return <PaymentForm control={paymentControl} errors={paymentErrors} />
       case 2:
         return <Review />
       default:
@@ -57,18 +56,24 @@ export default function Checkout() {
     }
   }
 
-  const onSubmit = async (data: Address) => {
+  const onAddressSubmit = async (data: Address) => {
     dispatch(saveDeliveryAddress(data))
+    setActiveStep(activeStep + 1)
+  }
+
+  const onPaymentSubmit = async (data: Payment) => {
+    dispatch(setNotification(CREDIT_CARD_INFO))
+    dispatch(setPaymentInfo(data))
+    setActiveStep(activeStep + 1)
   }
 
   const handleNext = async () => {
     if (activeStep === 0) {
-      handleSubmit(onSubmit)()
+      handleAddressSubmit(onAddressSubmit)()
     }
     if (activeStep === 1) {
-      dispatch(setNotification(CREDIT_CARD_INFO))
+      handlePaymentSubmit(onPaymentSubmit)()
     }
-    setActiveStep(activeStep + 1)
 
     if (activeStep == 2) {
       if (deliveryaddress) {
@@ -82,6 +87,7 @@ export default function Checkout() {
         dispatch(setCart([]))
         dispatch(removeDeliveryAddress())
       }
+      setActiveStep(activeStep + 1)
     }
   }
 
