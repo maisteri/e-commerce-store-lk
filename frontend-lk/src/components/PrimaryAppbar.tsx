@@ -7,6 +7,7 @@ import ShoppingCartButton from './Buttons/ShoppingCartButton'
 import MenuButton from './Buttons/MenuButton'
 import { Link } from 'react-router-dom'
 import HelloUser from './HelloUser'
+import { env } from '../config'
 
 export default function PrimaryAppBar() {
   return (
@@ -22,9 +23,7 @@ export default function PrimaryAppBar() {
             <Link to={'/'}>
               <Logo
                 path={
-                  process.env.NODE_ENV === 'development'
-                    ? 'src/data/lk_logo.jpg'
-                    : 'lk_logo.jpg'
+                  env === 'development' ? 'src/data/lk_logo.jpg' : 'lk_logo.jpg'
                 }
               />
             </Link>

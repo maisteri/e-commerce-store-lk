@@ -1,4 +1,4 @@
-const env = import.meta.env.VITE_ENV || 'production'
+export const env = import.meta.env.VITE_ENV || 'production'
 
 export const apiBaseUrl =
   env === 'development'
