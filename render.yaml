@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: e-commerce-store-lk-api
+    region: frankfurt
+    runtime: node
+    autoDeploy: true
+    buildCommand: |
+      cd backend
+      npm install
+    startCommand: |
+      cd backend
+      npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+  - type: web
+    name: e-commerce-store-lk-spa
+    runtime: static
+    buildCommand: |
+      cd frontend-lk 
+      npm install
+      npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_ENV
+        value: production
