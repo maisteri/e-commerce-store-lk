@@ -3,8 +3,8 @@ services:
     name: e-commerce-store-lk-api
     region: frankfurt
     runtime: node
-    plan: free
     autoDeploy: true
+    plan: free
     buildCommand: |
       cd backend
       npm install
@@ -21,7 +21,6 @@ services:
       cd frontend-lk
       npm install
       npm run build
-      pwd
     staticPublishPath: ./frontend-lk/dist
     envVars:
       - fromGroup: e-commerce-store-lk
