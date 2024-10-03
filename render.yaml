@@ -3,6 +3,7 @@ services:
     name: e-commerce-store-lk-api
     region: frankfurt
     runtime: node
+    plan: free
     autoDeploy: true
     buildCommand: |
       cd backend
