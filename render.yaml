@@ -18,9 +18,9 @@ services:
     name: e-commerce-store-lk-app
     runtime: static
     buildCommand: |
-      cd frontend-lk 
+      cd frontend-lk
       npm install
       npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: ./frontend-lk/dist
     envVars:
       - fromGroup: e-commerce-store-lk
