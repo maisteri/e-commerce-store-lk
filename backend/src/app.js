@@ -43,14 +43,23 @@ sessionStore.sync()
 
 app.use(
   cors({
-    origin:
-      NODE_ENV === 'development'
-        ? 'http://localhost:5173'
-        : 'https://e-commerce-store-lk.onrender.com',
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        'http://localhost:5173',
+        'https://e-commerce-store-lk.onrender.com',
+        'https://e-commerce-store-lk-app.onrender.com',
+      ]
+
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
     credentials: true,
   })
 )
-// app.use(corsDevRules)
+
 app.use(express.json())
 app.use(tokenExtractor)
 app.use(express.static(path.join(__dirname, '..', 'dist')))

@@ -11,11 +11,10 @@ services:
       cd backend
       npm start
     envVars:
-      - key: NODE_ENV
-        value: production
+      - fromGroup: e-commerce-store-lk
 
   - type: web
-    name: e-commerce-store-lk-spa
+    name: e-commerce-store-lk-app
     runtime: static
     buildCommand: |
       cd frontend-lk 
@@ -23,5 +22,4 @@ services:
       npm run build
     staticPublishPath: ./dist
     envVars:
-      - key: VITE_ENV
-        value: production
+      - fromGroup: e-commerce-store-lk
