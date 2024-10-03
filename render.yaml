@@ -21,6 +21,7 @@ services:
       cd frontend-lk
       npm install
       npm run build
+      pwd
     staticPublishPath: ./frontend-lk/dist
     envVars:
       - fromGroup: e-commerce-store-lk
