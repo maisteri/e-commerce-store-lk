@@ -4,7 +4,7 @@ services:
     region: frankfurt
     runtime: node
     autoDeploy: true
-    plan: free
+    plan: starter
     buildCommand: |
       cd backend
       npm install
