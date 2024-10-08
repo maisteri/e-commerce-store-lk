@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: e-commerce-store-lk-api
+    name: api.e-commerce-store-lk
     region: frankfurt
     runtime: node
     autoDeploy: true
@@ -15,7 +15,7 @@ services:
       - fromGroup: e-commerce-store-lk
 
   - type: web
-    name: e-commerce-store-lk-app
+    name: app.e-commerce-store-lk
     runtime: static
     buildCommand: |
       cd frontend-lk
