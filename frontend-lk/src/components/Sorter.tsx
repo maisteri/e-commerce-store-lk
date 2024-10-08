@@ -17,8 +17,9 @@ const Sorter = () => {
 
   return (
     <FormControl sx={{ m: 2, minWidth: 180 }} size='small'>
-      <InputLabel id='demo-simple-select-label'>Sort by</InputLabel>
+      <InputLabel id='sort-select-label'>Sort by</InputLabel>
       <Select
+        name='sort-select-label'
         labelId='sort-select-label'
         id='sort-select'
         value={sortOrder}

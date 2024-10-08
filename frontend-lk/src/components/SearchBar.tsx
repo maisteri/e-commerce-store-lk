@@ -63,6 +63,7 @@ const SearchBar = (): JSX.Element | null => {
       </SearchIconWrapper>
 
       <StyledInputBase
+        name='search'
         placeholder='Search…'
         inputProps={{ 'aria-label': 'search' }}
         fullWidth

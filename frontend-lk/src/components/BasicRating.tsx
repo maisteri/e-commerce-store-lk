@@ -40,7 +40,7 @@ const BasicRating = ({
   return (
     <>
       <Rating
-        name='product-rating'
+        name={`product-rating-${productId}`}
         precision={1}
         value={Number(rating)}
         onChange={handleChange}
