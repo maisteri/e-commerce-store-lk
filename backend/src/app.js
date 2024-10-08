@@ -36,7 +36,7 @@ app.use(
     cookie: {
       httpOnly: true,
       expires: new Date(Date.now() + 3600000000),
-      sameSite: 'none',
+      domain: '.onrender.com',
     },
   })
 )
