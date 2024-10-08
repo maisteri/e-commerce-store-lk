@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const session = require('express-session')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
-const cors = require('cors')
+// const cors = require('cors')
 require('express-async-errors')
 
 const { connectToDatabase, sequelize } = require('./utils/db')
@@ -36,30 +36,29 @@ app.use(
     cookie: {
       httpOnly: true,
       expires: new Date(Date.now() + 3600000000),
-      domain: '.e-commerce-store-lk.onrender.com',
     },
   })
 )
 sessionStore.sync()
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      const allowedOrigins = [
-        'http://localhost:5173',
-        'https://e-commerce-store-lk.onrender.com',
-        'https://e-commerce-store-lk-app.onrender.com',
-      ]
-      console.log('ORIGIN: ', origin)
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    },
-    credentials: true,
-  })
-)
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       const allowedOrigins = [
+//         'http://localhost:5173',
+//         'https://e-commerce-store-lk.onrender.com',
+//         'https://e-commerce-store-lk-app.onrender.com',
+//       ]
+//       console.log('ORIGIN: ', origin)
+//       if (allowedOrigins.indexOf(origin) !== -1) {
+//         callback(null, true)
+//       } else {
+//         callback(new Error('Not allowed by CORS'))
+//       }
+//     },
+//     credentials: true,
+//   })
+// )
 
 app.use(express.json())
 app.use(tokenExtractor)
