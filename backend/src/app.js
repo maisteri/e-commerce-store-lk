@@ -32,11 +32,11 @@ app.use(
     secret: SECRET,
     store: sessionStore,
     resave: false,
-    sameSite: false,
     proxy: false,
     cookie: {
       httpOnly: true,
       expires: new Date(Date.now() + 3600000000),
+      sameSite: 'none',
     },
   })
 )
