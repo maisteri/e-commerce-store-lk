@@ -32,6 +32,7 @@ app.use(
     secret: SECRET,
     store: sessionStore,
     resave: false,
+    sameSite: false,
     proxy: false,
     cookie: {
       httpOnly: true,
@@ -49,7 +50,7 @@ app.use(
         'https://e-commerce-store-lk.onrender.com',
         'https://e-commerce-store-lk-app.onrender.com',
       ]
-
+      console.log('ORIGIN: ', origin)
       if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true)
       } else {
