@@ -12,15 +12,12 @@ const cartSlice = createSlice({
   reducers: {
     append(state, action: PayloadAction<ShoppingCartItem>) {
       state.push(action.payload)
-      console.log('appended')
       return state
     },
     setCart(_state, action: PayloadAction<ShoppingCartItem[]>) {
-      console.log('set')
       return action.payload
     },
     remove(state, action: PayloadAction<ShoppingCartItemId>) {
-      console.log('removed')
       return state.filter((item) => item.id !== action.payload)
     },
   },
@@ -57,7 +54,6 @@ export const modifyItemQuantity = (
   quantity: number
 ): AppThunk => {
   return async (dispatch, getState) => {
-    console.log('wadap:::', id, quantity)
     const { shoppingCart } = getState()
 
     if (!quantity) {

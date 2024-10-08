@@ -8,19 +8,17 @@ import {
   Typography,
 } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import { useAppDispatch, useAppSelector } from '../hooks'
+import { useAppDispatch } from '../hooks'
 import { Product } from '../types'
 import { addItemToCart } from '../reducers/shoppingCartReducer'
 import BasicRating from './BasicRating'
 
 const ProductCard = (props: Product) => {
-  const items = useAppSelector((state) => state.shoppingCart)
   const dispatch = useAppDispatch()
 
   const handleItemAddToCart = (event: React.SyntheticEvent) => {
     event.preventDefault()
     dispatch(addItemToCart(props.id))
-    console.log(items)
   }
 
   return (
