@@ -16,14 +16,3 @@ services:
       npm start
     envVars:
       - fromGroup: e-commerce-store-lk
-
-  # - type: web
-  #   name: app.e-commerce-store-lk
-  #   runtime: static
-  #   buildCommand: |
-  #     cd frontend-lk
-  #     npm install
-  #     npm run build
-  #   staticPublishPath: ./frontend-lk/dist
-  #   envVars:
-  #     - fromGroup: e-commerce-store-lk

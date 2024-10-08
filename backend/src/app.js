@@ -13,6 +13,7 @@ const productsRouter = require('./controllers/products')
 const cartRouter = require('./controllers/cart')
 const addressRouter = require('./controllers/address')
 const orderRouter = require('./controllers/order')
+const staticRouter = require('./controllers/static')
 const { tokenExtractor, errorHandler } = require('./utils/middleware')
 
 connectToDatabase()
@@ -27,6 +28,7 @@ const app = express()
 const sessionStore = new SequelizeStore({
   db: sequelize,
 })
+
 app.use(
   session({
     secret: SECRET,
@@ -52,7 +54,10 @@ if (NODE_ENV === 'development') {
 
 app.use(express.json())
 app.use(tokenExtractor)
+
 app.use(express.static(path.join(__dirname, '..', 'dist')))
+app.use(staticRouter)
+
 console.log('DIR_NAME: ', __dirname)
 console.log('ENVI: ', NODE_ENV)
 
