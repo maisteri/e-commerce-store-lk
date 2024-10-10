@@ -29,10 +29,9 @@ const getAllCategories = async () => {
 
 const postRating = async (params: postRatingParams) => {
   let headers = {}
-  const loggedUserJSON = window.localStorage.getItem('loggedLKAppUser')
-  if (loggedUserJSON) {
-    const user = JSON.parse(loggedUserJSON)
-    headers = { Authorization: `Bearer ${user.token}` }
+
+  if (params.token) {
+    headers = { Authorization: `Bearer ${params.token}` }
   }
 
   await axios.post<void>(

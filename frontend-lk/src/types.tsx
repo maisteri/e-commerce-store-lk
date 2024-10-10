@@ -6,6 +6,8 @@ export type ProductId = number
 
 type Rating = number
 
+type Token = string
+
 export interface Product {
   id: ProductId
   title: string
@@ -20,6 +22,7 @@ export interface Product {
 export interface postRatingParams {
   rating: Rating
   productId: ProductId
+  token: Token
 }
 
 export interface RatingComponentProps {
@@ -52,7 +55,7 @@ export interface CredentialsWithRemember {
 export type NavLink = () => void
 
 export interface UserData {
-  token: string
+  token: Token
   name: string
 }
 

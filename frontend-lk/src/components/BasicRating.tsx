@@ -2,7 +2,7 @@ import * as React from 'react'
 import Rating from '@mui/material/Rating'
 import productService from '../services/product'
 import { RatingComponentProps } from '../types'
-import { useAppDispatch } from '../hooks'
+import { useAppDispatch, useAppSelector } from '../hooks'
 import { notify } from '../reducers/siteGeneralReducer'
 import { SUCCESSFUL_RATING } from '../constants'
 import axios from 'axios'
@@ -13,6 +13,7 @@ const BasicRating = ({
   productId,
 }: RatingComponentProps) => {
   const dispatch = useAppDispatch()
+  const userToken = useAppSelector((state) => state.user?.token)
 
   const handleChange = async (
     _event: React.SyntheticEvent<Element, Event>,
@@ -23,6 +24,7 @@ const BasicRating = ({
       await productService.postRating({
         rating: newRating,
         productId,
+        token: userToken,
       })
       dispatch(notify(SUCCESSFUL_RATING))
     } catch (error) {
